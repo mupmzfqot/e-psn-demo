@@ -1,0 +1,19 @@
+@import "tailwindcss";
+
+@variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --color-psn-teal: #0d9488;
+  --color-psn-teal-dark: #0f766e;
+  --color-psn-teal-light: #14b8a6;
+}
+
+[x-cloak] { display: none !important; }
+
+.nav-active {
+  @apply bg-teal-50 dark:bg-teal-950 text-teal-700 dark:text-teal-300 font-semibold;
+}
+
+.nav-inactive {
+  @apply text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 hover:text-gray-900 dark:hover:text-gray-200;
+}
