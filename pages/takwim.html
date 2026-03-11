@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Takwim Aktiviti | e-PSN</title>
+  <script>if(localStorage.theme==='dark'||(!('theme' in localStorage)&&window.matchMedia('(prefers-color-scheme: dark)').matches)){document.documentElement.classList.add('dark')}</script>
+  <script type="module" src="/src/main.js"></script>
+</head>
+<body class="bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100 font-sans antialiased min-h-screen flex flex-col"
+  x-data="{
+    dark: document.documentElement.classList.contains('dark'),
+    toggleDark() {
+      this.dark = !this.dark;
+      document.documentElement.classList.toggle('dark', this.dark);
+      localStorage.setItem('theme', this.dark ? 'dark' : 'light');
+    },
+    mobileMenuOpen: false
+  }">
+
+  <!-- Navbar -->
+  <nav class="sticky top-0 z-50 bg-white dark:bg-gray-950 border-b border-gray-200 dark:border-gray-800 shadow-sm">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center gap-6">
+      <a href="/index.html" class="flex items-center gap-2 shrink-0">
+        <img src="/src/logo.png" alt="PSN" class="h-9 w-9 object-contain">
+        <span class="font-bold text-teal-600 dark:text-teal-400 text-sm">e-PSN</span>
+      </a>
+      <div class="hidden md:flex items-center gap-1 flex-1">
+        <a href="/index.html" class="px-3 py-2 text-sm text-gray-600 dark:text-gray-400 hover:text-teal-600 dark:hover:text-teal-400 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">Utama</a>
+        <a href="/pages/takwim.html" class="px-3 py-2 text-sm text-teal-600 dark:text-teal-400 font-medium rounded-lg bg-teal-50 dark:bg-teal-900/20 transition-colors">Takwim</a>
+        <a href="/pages/galeri.html" class="px-3 py-2 text-sm text-gray-600 dark:text-gray-400 hover:text-teal-600 dark:hover:text-teal-400 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">Galeri</a>
+        <a href="/pages/program.html" class="px-3 py-2 text-sm text-gray-600 dark:text-gray-400 hover:text-teal-600 dark:hover:text-teal-400 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">Program</a>
+        <a href="/pages/aduan-baru.html" class="px-3 py-2 text-sm text-gray-600 dark:text-gray-400 hover:text-teal-600 dark:hover:text-teal-400 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">Hantar Aduan</a>
+        <a href="/pages/tempahan-baru.html" class="px-3 py-2 text-sm text-gray-600 dark:text-gray-400 hover:text-teal-600 dark:hover:text-teal-400 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">Tempahan</a>
+      </div>
+      <div class="ml-auto flex items-center gap-2">
+        <!-- Dark mode toggle -->
+        <button @click="toggleDark()" class="p-2 rounded-lg text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors" :title="dark ? 'Mod Cerah' : 'Mod Gelap'">
+          <svg x-show="!dark" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v2.25m6.364.386-1.591 1.591M21 12h-2.25m-.386 6.364-1.591-1.591M12 18.75V21m-4.773-4.227-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0Z" />
+          </svg>
+          <svg x-show="dark" x-cloak class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M21.752 15.002A9.72 9.72 0 0 1 18 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 0 0 3 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 0 0 9.002-5.998Z" />
+          </svg>
+        </button>
+        <!-- Mobile menu toggle -->
+        <button @click="mobileMenuOpen = !mobileMenuOpen" class="md:hidden p-2 rounded-lg text-gray-500 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
+          <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+          </svg>
+        </button>
+        <a href="/pages/login.html" class="hidden md:inline-flex px-4 py-2 bg-teal-600 hover:bg-teal-700 text-white text-sm font-medium rounded-lg transition-colors">Log Masuk</a>
+      </div>
+    </div>
+    <!-- Mobile menu -->
+    <div x-show="mobileMenuOpen" x-cloak class="md:hidden border-t border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-950 px-4 py-3 space-y-1">
+      <a href="/index.html" class="block px-3 py-2 text-sm text-gray-600 dark:text-gray-400 hover:text-teal-600 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">Utama</a>
+      <a href="/pages/takwim.html" class="block px-3 py-2 text-sm text-teal-600 font-medium rounded-lg bg-teal-50 dark:bg-teal-900/20">Takwim</a>
+      <a href="/pages/galeri.html" class="block px-3 py-2 text-sm text-gray-600 dark:text-gray-400 hover:text-teal-600 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">Galeri</a>
+      <a href="/pages/program.html" class="block px-3 py-2 text-sm text-gray-600 dark:text-gray-400 hover:text-teal-600 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">Program</a>
+      <a href="/pages/aduan-baru.html" class="block px-3 py-2 text-sm text-gray-600 dark:text-gray-400 hover:text-teal-600 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">Hantar Aduan</a>
+      <a href="/pages/tempahan-baru.html" class="block px-3 py-2 text-sm text-gray-600 dark:text-gray-400 hover:text-teal-600 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">Tempahan</a>
+      <div class="pt-2 border-t border-gray-100 dark:border-gray-800">
+        <a href="/pages/login.html" class="block px-3 py-2 text-sm text-center bg-teal-600 hover:bg-teal-700 text-white rounded-lg transition-colors">Log Masuk</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main content -->
+  <main class="flex-1"
+    x-data="{
+      activeFilter: 'semua',
+      view: 'list',
+      selectedDay: null,
+      events: [
+        { id: 1, day: 12, date: '12 MAC', title: 'Pameran Sistem Suria', time: '9:00pg – 5:00ptg', location: 'Dewan Pameran Utama', category: 'Pameran', month: 'mac', color: 'teal' },
+        { id: 2, day: 15, date: '15 MAC', title: 'Bengkel Robotik Kanak-kanak', time: '2:00 – 5:00ptg', location: 'Makmal Teknologi', category: 'Bengkel', month: 'mac', color: 'blue' },
+        { id: 3, day: 18, date: '18 MAC', title: 'Ceramah: Alam Semesta & Kosmologi', time: '8:00 – 10:00mlm', location: 'Amfiteater', category: 'Ceramah', month: 'mac', color: 'purple' },
+        { id: 4, day: 22, date: '22 MAC', title: 'Program Sains untuk Sekolah', time: '9:00 – 11:00pg', location: 'Dewan Serbaguna', category: 'Program', month: 'mac', color: 'green' },
+        { id: 5, day: 25, date: '25 MAC', title: 'Pameran Kimia Interaktif', time: '9:00pg – 5:00ptg', location: 'Dewan Pameran B', category: 'Pameran', month: 'mac', color: 'teal' },
+        { id: 6, day: 29, date: '29 MAC', title: 'Bengkel Astronomi', time: '8:00 – 10:00mlm', location: 'Balai Cerap', category: 'Bengkel', month: 'mac', color: 'blue' },
+        { id: 7, day: 2, date: '2 APR', title: 'Forum Sains & Teknologi', time: '9:00pg – 1:00ptg', location: 'Dewan Auditorium', category: 'Program', month: 'apr', color: 'green' },
+        { id: 8, day: 5, date: '5 APR', title: 'Program Outreach: SMK Klang', time: '8:00 – 12:00tgh', location: 'Luar Kampus', category: 'Program', month: 'apr', color: 'orange' }
+      ],
+      eventDays: [12, 15, 18, 22, 25, 29],
+      calendarDays: Array.from({length: 31}, (_, i) => i + 1),
+      get filteredEvents() {
+        if (this.activeFilter === 'semua') return this.events;
+        return this.events.filter(e => e.month === this.activeFilter);
+      },
+      getEventForDay(day) {
+        return this.events.find(e => e.day === day && e.month === 'mac');
+      },
+      categoryColor(cat) {
+        const map = { 'Pameran': 'bg-teal-100 dark:bg-teal-900/40 text-teal-700 dark:text-teal-300', 'Bengkel': 'bg-blue-100 dark:bg-blue-900/40 text-blue-700 dark:text-blue-300', 'Ceramah': 'bg-purple-100 dark:bg-purple-900/40 text-purple-700 dark:text-purple-300', 'Program': 'bg-green-100 dark:bg-green-900/40 text-green-700 dark:text-green-300' };
+        return map[cat] || 'bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300';
+      },
+      cardAccent(color) {
+        const map = { 'teal': 'border-l-teal-500', 'blue': 'border-l-blue-500', 'purple': 'border-l-purple-500', 'green': 'border-l-green-500', 'orange': 'border-l-orange-500' };
+        return map[color] || 'border-l-gray-400';
+      },
+      dateBadgeBg(color) {
+        const map = { 'teal': 'bg-teal-600', 'blue': 'bg-blue-600', 'purple': 'bg-purple-600', 'green': 'bg-green-600', 'orange': 'bg-orange-500' };
+        return map[color] || 'bg-gray-500';
+      }
+    }">
+
+    <!-- Hero -->
+    <section class="bg-gradient-to-br from-teal-600 to-teal-800 text-white py-16 px-4">
+      <div class="max-w-7xl mx-auto text-center">
+        <div class="inline-flex items-center justify-center w-14 h-14 bg-white/20 rounded-2xl mb-5">
+          <svg class="w-7 h-7 text-white" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5" />
+          </svg>
+        </div>
+        <h1 class="text-4xl font-bold mb-3">Takwim Aktiviti</h1>
+        <p class="text-teal-100 text-lg max-w-xl mx-auto">Jadual aktiviti dan program Pusat Sains Negara</p>
+      </div>
+    </section>
+
+    <!-- Controls -->
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-8">
+        <!-- Filter pills -->
+        <div class="flex flex-wrap gap-2">
+          <template x-for="pill in [{id:'semua',label:'Semua'},{id:'jan',label:'Januari'},{id:'feb',label:'Februari'},{id:'mac',label:'Mac'},{id:'apr',label:'April'},{id:'mei',label:'Mei'},{id:'jun',label:'Jun'}]" :key="pill.id">
+            <button
+              @click="activeFilter = pill.id"
+              :class="activeFilter === pill.id
+                ? 'bg-teal-600 text-white shadow-sm'
+                : 'bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-400 border border-gray-200 dark:border-gray-700 hover:border-teal-400 hover:text-teal-600 dark:hover:text-teal-400'"
+              class="px-4 py-1.5 rounded-full text-sm font-medium transition-all"
+              x-text="pill.label">
+            </button>
+          </template>
+        </div>
+        <!-- View toggle -->
+        <div class="flex items-center bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-1 gap-1 shrink-0">
+          <button
+            @click="view = 'list'"
+            :class="view === 'list' ? 'bg-teal-600 text-white shadow-sm' : 'text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200'"
+            class="flex items-center gap-1.5 px-3 py-1.5 rounded-md text-sm font-medium transition-all">
+            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 6.75h12M8.25 12h12m-12 5.25h12M3.75 6.75h.007v.008H3.75V6.75Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0ZM3.75 12h.007v.008H3.75V12Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm-.375 5.25h.007v.008H3.75v-.008Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z" />
+            </svg>
+            Senarai
+          </button>
+          <button
+            @click="view = 'kalender'"
+            :class="view === 'kalender' ? 'bg-teal-600 text-white shadow-sm' : 'text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200'"
+            class="flex items-center gap-1.5 px-3 py-1.5 rounded-md text-sm font-medium transition-all">
+            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5" />
+            </svg>
+            Kalendar
+          </button>
+        </div>
+      </div>
+
+      <!-- LIST VIEW -->
+      <div x-show="view === 'list'">
+        <div x-show="filteredEvents.length === 0" class="text-center py-16 text-gray-400 dark:text-gray-500">
+          <svg class="w-12 h-12 mx-auto mb-3 opacity-40" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5" />
+          </svg>
+          <p class="text-sm">Tiada aktiviti bagi bulan ini.</p>
+        </div>
+        <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-2">
+          <template x-for="event in filteredEvents" :key="event.id">
+            <div class="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 border-l-4 shadow-sm hover:shadow-md transition-shadow flex gap-4 p-5"
+              :class="cardAccent(event.color)">
+              <!-- Date badge -->
+              <div class="shrink-0 flex flex-col items-center justify-center w-14 h-14 rounded-xl text-white text-center shadow-sm"
+                :class="dateBadgeBg(event.color)">
+                <span class="text-lg font-bold leading-tight" x-text="event.day"></span>
+                <span class="text-xs font-medium uppercase leading-tight" x-text="event.month.toUpperCase()"></span>
+              </div>
+              <!-- Content -->
+              <div class="flex-1 min-w-0">
+                <div class="flex items-start justify-between gap-2 mb-1">
+                  <h3 class="font-semibold text-gray-900 dark:text-gray-100 text-sm leading-snug" x-text="event.title"></h3>
+                  <span class="shrink-0 text-xs font-medium px-2 py-0.5 rounded-full" :class="categoryColor(event.category)" x-text="event.category"></span>
+                </div>
+                <div class="flex items-center gap-1 text-xs text-gray-500 dark:text-gray-400 mb-1">
+                  <svg class="w-3.5 h-3.5 shrink-0" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                  </svg>
+                  <span x-text="event.time"></span>
+                </div>
+                <div class="flex items-center gap-1 text-xs text-gray-500 dark:text-gray-400 mb-3">
+                  <svg class="w-3.5 h-3.5 shrink-0" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z" />
+                  </svg>
+                  <span x-text="event.location"></span>
+                </div>
+                <div class="flex gap-2">
+                  <a href="#" class="px-3 py-1.5 bg-teal-600 hover:bg-teal-700 text-white text-xs font-medium rounded-lg transition-colors">Daftar</a>
+                  <a href="#" class="px-3 py-1.5 bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-300 text-xs font-medium rounded-lg transition-colors">Maklumat Lanjut</a>
+                </div>
+              </div>
+            </div>
+          </template>
+        </div>
+      </div>
+
+      <!-- CALENDAR VIEW -->
+      <div x-show="view === 'kalender'" x-cloak>
+        <div class="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm overflow-hidden">
+          <!-- Calendar header -->
+          <div class="flex items-center justify-between px-6 py-4 border-b border-gray-200 dark:border-gray-700">
+            <h2 class="text-lg font-semibold text-gray-900 dark:text-gray-100">Mac 2025</h2>
+            <div class="flex items-center gap-2">
+              <button class="p-1.5 rounded-lg text-gray-500 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
+                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5" />
+                </svg>
+              </button>
+              <button class="p-1.5 rounded-lg text-gray-500 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
+                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
+                </svg>
+              </button>
+            </div>
+          </div>
+          <!-- Day headers -->
+          <div class="grid grid-cols-7 border-b border-gray-200 dark:border-gray-700">
+            <template x-for="day in ['Ahd','Isn','Sel','Rab','Kha','Jum','Sab']" :key="day">
+              <div class="py-3 text-center text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wide" x-text="day"></div>
+            </template>
+          </div>
+          <!-- Calendar grid — March 2025 starts on Saturday (col 7) -->
+          <div class="grid grid-cols-7">
+            <!-- Empty cells before day 1 (March 2025 starts on Saturday = index 6) -->
+            <template x-for="n in 6" :key="'empty-'+n">
+              <div class="min-h-[72px] p-2 border-b border-r border-gray-100 dark:border-gray-700/50 bg-gray-50/50 dark:bg-gray-800/50"></div>
+            </template>
+            <!-- Days 1-31 -->
+            <template x-for="day in calendarDays" :key="day">
+              <div
+                @click="selectedDay = selectedDay === day ? null : day"
+                :class="{
+                  'bg-teal-50 dark:bg-teal-900/20 border-teal-200 dark:border-teal-800': getEventForDay(day),
+                  'cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-750': getEventForDay(day),
+                  'border-r border-b border-gray-100 dark:border-gray-700/50': true,
+                  'ring-2 ring-teal-500 ring-inset': selectedDay === day
+                }"
+                class="min-h-[72px] p-2 border-b border-r border-gray-100 dark:border-gray-700/50 transition-colors">
+                <span
+                  :class="getEventForDay(day) ? 'text-teal-700 dark:text-teal-300 font-semibold' : 'text-gray-700 dark:text-gray-300'"
+                  class="text-sm block mb-1"
+                  x-text="day">
+                </span>
+                <template x-if="getEventForDay(day)">
+                  <div>
+                    <div class="w-1.5 h-1.5 rounded-full bg-teal-500 mb-1"></div>
+                    <span class="text-xs text-teal-600 dark:text-teal-400 leading-tight line-clamp-2" x-text="getEventForDay(day).title"></span>
+                  </div>
+                </template>
+              </div>
+            </template>
+            <!-- Empty cells to complete last row (31 days + 6 offset = 37 cells; 37 % 7 = 2, need 5 more) -->
+            <template x-for="n in 5" :key="'end-'+n">
+              <div class="min-h-[72px] p-2 border-b border-r border-gray-100 dark:border-gray-700/50 bg-gray-50/50 dark:bg-gray-800/50"></div>
+            </template>
+          </div>
+        </div>
+
+        <!-- Selected day panel -->
+        <div x-show="selectedDay !== null" x-cloak class="mt-4 bg-white dark:bg-gray-800 rounded-xl border border-teal-200 dark:border-teal-800 p-5 shadow-sm">
+          <template x-if="selectedDay && getEventForDay(selectedDay)">
+            <div>
+              <div class="flex items-center gap-3 mb-3">
+                <div class="w-10 h-10 rounded-xl bg-teal-600 flex items-center justify-center text-white font-bold text-lg" x-text="selectedDay"></div>
+                <div>
+                  <div class="text-xs text-gray-500 dark:text-gray-400 uppercase tracking-wide font-medium">Mac 2025</div>
+                  <h3 class="font-semibold text-gray-900 dark:text-gray-100 text-sm" x-text="getEventForDay(selectedDay).title"></h3>
+                </div>
+              </div>
+              <div class="grid grid-cols-2 gap-3 text-sm">
+                <div class="flex items-center gap-2 text-gray-600 dark:text-gray-400">
+                  <svg class="w-4 h-4 text-teal-500" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                  </svg>
+                  <span x-text="getEventForDay(selectedDay).time"></span>
+                </div>
+                <div class="flex items-center gap-2 text-gray-600 dark:text-gray-400">
+                  <svg class="w-4 h-4 text-teal-500" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z" />
+                  </svg>
+                  <span x-text="getEventForDay(selectedDay).location"></span>
+                </div>
+              </div>
+              <div class="mt-4 flex gap-2">
+                <a href="#" class="px-4 py-2 bg-teal-600 hover:bg-teal-700 text-white text-sm font-medium rounded-lg transition-colors">Daftar</a>
+                <a href="#" class="px-4 py-2 bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-300 text-sm font-medium rounded-lg transition-colors">Maklumat Lanjut</a>
+              </div>
+            </div>
+          </template>
+          <template x-if="selectedDay && !getEventForDay(selectedDay)">
+            <div class="text-center text-gray-400 dark:text-gray-500 py-4 text-sm">
+              Tiada aktiviti pada <span x-text="selectedDay + ' Mac 2025'"></span>.
+            </div>
+          </template>
+        </div>
+      </div>
+
+      <!-- Legend -->
+      <div class="mt-8 flex flex-wrap items-center gap-4 p-4 bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700">
+        <span class="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wide mr-2">Kategori:</span>
+        <template x-for="cat in [{label:'Pameran',cls:'bg-teal-100 dark:bg-teal-900/40 text-teal-700 dark:text-teal-300'},{label:'Bengkel',cls:'bg-blue-100 dark:bg-blue-900/40 text-blue-700 dark:text-blue-300'},{label:'Ceramah',cls:'bg-purple-100 dark:bg-purple-900/40 text-purple-700 dark:text-purple-300'},{label:'Program',cls:'bg-green-100 dark:bg-green-900/40 text-green-700 dark:text-green-300'}]" :key="cat.label">
+          <span class="text-xs font-medium px-2.5 py-1 rounded-full" :class="cat.cls" x-text="cat.label"></span>
+        </template>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-gray-900 dark:bg-gray-950 text-gray-400 py-10 mt-auto">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex flex-col md:flex-row items-center justify-between gap-4">
+        <div class="flex items-center gap-3">
+          <img src="/src/logo.png" alt="PSN" class="h-8 w-8 object-contain opacity-80">
+          <div>
+            <div class="text-white font-semibold text-sm">Pusat Sains Negara</div>
+            <div class="text-xs text-gray-500">e-PSN Portal Awam</div>
+          </div>
+        </div>
+        <div class="text-xs text-gray-500 text-center">
+          &copy; 2025 Pusat Sains Negara. Hak Cipta Terpelihara.
+        </div>
+        <div class="flex gap-4 text-sm">
+          <a href="/pages/aduan-baru.html" class="hover:text-white transition-colors">Hantar Aduan</a>
+          <a href="/pages/aduan-semak.html" class="hover:text-white transition-colors">Semak Aduan</a>
+          <a href="/pages/tempahan-baru.html" class="hover:text-white transition-colors">Tempahan</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

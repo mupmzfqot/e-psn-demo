@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Butiran Tempahan | e-PSN</title>
+  <script>if(localStorage.theme==='dark'||(!('theme' in localStorage)&&window.matchMedia('(prefers-color-scheme: dark)').matches)){document.documentElement.classList.add('dark')}</script>
+  <script type="module" src="/src/main.js"></script>
+</head>
+<body class="bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-100 font-sans antialiased"
+  x-data="{
+    sidebarOpen: window.innerWidth >= 1024,
+    dark: document.documentElement.classList.contains('dark'),
+    confirmAction: false,
+    actionType: 'sahkan',
+    toggleDark() { this.dark = !this.dark; document.documentElement.classList.toggle('dark', this.dark); localStorage.setItem('theme', this.dark ? 'dark' : 'light'); }
+  }">
+
+  <!-- Sidebar backdrop -->
+  <div x-show="sidebarOpen" x-cloak @click="sidebarOpen = false" class="fixed inset-0 z-20 bg-black/40 backdrop-blur-sm lg:hidden"></div>
+
+  <!-- Sidebar -->
+  <aside :class="sidebarOpen ? 'translate-x-0' : '-translate-x-full'" class="fixed inset-y-0 left-0 z-30 w-64 bg-white dark:bg-gray-950 border-r border-gray-200 dark:border-gray-800 flex flex-col transition-transform duration-300 ease-in-out lg:translate-x-0">
+    <div class="flex items-center gap-3 px-5 h-16 border-b border-gray-200 dark:border-gray-800 shrink-0">
+      <img src="/src/logo.png" alt="PSN" class="h-9 w-9 object-contain shrink-0">
+      <div><div class="font-bold text-teal-600 dark:text-teal-400 text-sm leading-tight">e-PSN</div><div class="text-xs text-gray-400 dark:text-gray-500 leading-tight">Portal Admin</div></div>
+    </div>
+    <nav class="flex-1 overflow-y-auto py-4 px-3 space-y-0.5">
+      <p class="px-3 pb-1 text-xs font-semibold text-gray-400 dark:text-gray-600 uppercase tracking-wider">Utama</p>
+      <a href="/dashboard.html" class="nav-inactive flex items-center gap-3 px-3 py-2 rounded-lg text-sm transition-colors"><svg class="w-5 h-5 shrink-0" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="m2.25 12 8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" /></svg>Dashboard</a>
+      <p class="px-3 pb-1 pt-4 text-xs font-semibold text-gray-400 dark:text-gray-600 uppercase tracking-wider">Portal</p>
+      <a href="/admin/takwim.html" class="nav-inactive flex items-center gap-3 px-3 py-2 rounded-lg text-sm transition-colors"><svg class="w-5 h-5 shrink-0" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5" /></svg>Kalendar Takwim<span class="ml-auto text-xs bg-teal-100 dark:bg-teal-900/40 text-teal-700 dark:text-teal-400 px-1.5 py-0.5 rounded-full font-semibold">5</span></a>
+      <a href="#" class="nav-inactive flex items-center gap-3 px-3 py-2 rounded-lg text-sm transition-colors"><svg class="w-5 h-5 shrink-0" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="m2.25 15.75 5.159-5.159a2.25 2.25 0 0 1 3.182 0l5.159 5.159m-1.5-1.5 1.409-1.409a2.25 2.25 0 0 1 3.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 0 0 1.5-1.5V6a1.5 1.5 0 0 0-1.5-1.5H3.75A1.5 1.5 0 0 0 2.25 6v12a1.5 1.5 0 0 0 1.5 1.5Zm10.5-11.25h.008v.008h-.008V8.25Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z" /></svg>Galeri &amp; Program</a>
+      <p class="px-3 pb-1 pt-4 text-xs font-semibold text-gray-400 dark:text-gray-600 uppercase tracking-wider">Operasi</p>
+      <a href="/tempahan.html" class="nav-active flex items-center gap-3 px-3 py-2 rounded-lg text-sm transition-colors"><svg class="w-5 h-5 shrink-0" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5" /></svg>Sistem Tempahan<span class="ml-auto text-xs bg-yellow-100 dark:bg-yellow-900/40 text-yellow-700 dark:text-yellow-400 px-1.5 py-0.5 rounded-full font-semibold">5</span></a>
+      <a href="/admin/fasiliti.html" class="nav-inactive flex items-center gap-3 px-3 py-2 rounded-lg text-sm transition-colors"><svg class="w-5 h-5 shrink-0" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 21h16.5M4.5 3h15M5.25 3v18m13.5-18v18M9 6.75h1.5m-1.5 3h1.5m-1.5 3h1.5m3-6H15m-1.5 3H15m-1.5 3H15M9 21v-3.375c0-.621.504-1.125 1.125-1.125h3.75c.621 0 1.125.504 1.125 1.125V21" /></svg>Pengurusan Fasiliti</a>
+      <a href="/admin/operasi.html" class="nav-inactive flex items-center gap-3 px-3 py-2 rounded-lg text-sm transition-colors"><svg class="w-5 h-5 shrink-0" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12h3.75M9 15h3.75M9 18h3.75m3 .75H18a2.25 2.25 0 0 0 2.25-2.25V6.108c0-1.135-.845-2.098-1.976-2.192a48.424 48.424 0 0 0-1.123-.08m-5.801 0c-.065.21-.1.433-.1.664 0 .414.336.75.75.75h4.5a.75.75 0 0 0 .75-.75 2.25 2.25 0 0 0-.1-.664m-5.8 0A2.251 2.251 0 0 1 13.5 2.25H15c1.012 0 1.867.668 2.15 1.586m-5.8 0c-.376.023-.75.05-1.124.08C9.095 4.01 8.25 4.973 8.25 6.108V8.25m0 0H4.875c-.621 0-1.125.504-1.125 1.125v11.25c0 .621.504 1.125 1.125 1.125h9.75c.621 0 1.125-.504 1.125-1.125V9.375c0-.621-.504-1.125-1.125-1.125H8.25ZM6.75 12h.008v.008H6.75V12Zm0 3h.008v.008H6.75V15Zm0 3h.008v.008H6.75V18Z" /></svg>Log Operasi Harian</a>
+      <p class="px-3 pb-1 pt-4 text-xs font-semibold text-gray-400 dark:text-gray-600 uppercase tracking-wider">Khidmat Pelanggan</p>
+      <a href="/aduan.html" class="nav-inactive flex items-center gap-3 px-3 py-2 rounded-lg text-sm transition-colors"><svg class="w-5 h-5 shrink-0" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126ZM12 15.75h.007v.008H12v-.008Z" /></svg>Sistem Aduan<span class="ml-auto text-xs bg-red-100 dark:bg-red-900/40 text-red-700 dark:text-red-400 px-1.5 py-0.5 rounded-full font-semibold">12</span></a>
+      <a href="/admin/laporan.html" class="nav-inactive flex items-center gap-3 px-3 py-2 rounded-lg text-sm transition-colors"><svg class="w-5 h-5 shrink-0" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 0 1 3 19.875v-6.75ZM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V8.625ZM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V4.125Z" /></svg>Laporan &amp; Statistik</a>
+      <p class="px-3 pb-1 pt-4 text-xs font-semibold text-gray-400 dark:text-gray-600 uppercase tracking-wider">Pengurusan</p>
+      <a href="/admin/pengunjung.html" class="nav-inactive flex items-center gap-3 px-3 py-2 rounded-lg text-sm transition-colors"><svg class="w-5 h-5 shrink-0" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M18 18.72a9.094 9.094 0 0 0 3.741-.479 3 3 0 0 0-4.682-2.72m.94 3.198.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0 1 12 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 0 1 6 18.719m12 0a5.971 5.971 0 0 0-.941-3.197m0 0A5.995 5.995 0 0 0 12 12.75a5.995 5.995 0 0 0-5.058 2.772m0 0a3 3 0 0 0-4.681 2.72 8.986 8.986 0 0 0 3.74.477m.94-3.197a5.971 5.971 0 0 0-.94 3.197M15 6.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Zm6 3a2.25 2.25 0 1 1-4.5 0 2.25 2.25 0 0 1 4.5 0Zm-13.5 0a2.25 2.25 0 1 1-4.5 0 2.25 2.25 0 0 1 4.5 0Z" /></svg>Pengurusan Pengunjung</a>
+      <a href="/pengguna.html" class="nav-inactive flex items-center gap-3 px-3 py-2 rounded-lg text-sm transition-colors"><svg class="w-5 h-5 shrink-0" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19.128a9.38 9.38 0 0 0 2.625.372 9.337 9.337 0 0 0 4.121-.952 4.125 4.125 0 0 0-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 0 1 8.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0 1 11.964-3.07M12 6.375a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0Zm8.25 2.25a2.625 2.625 0 1 1-5.25 0 2.625 2.625 0 0 1 5.25 0Z" /></svg>Pengurusan Pengguna</a>
+      <a href="#" class="nav-inactive flex items-center gap-3 px-3 py-2 rounded-lg text-sm transition-colors"><svg class="w-5 h-5 shrink-0" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M9.594 3.94c.09-.542.56-.94 1.11-.94h2.593c.55 0 1.02.398 1.11.94l.213 1.281c.063.374.313.686.645.87.074.04.147.083.22.127.325.196.72.257 1.075.124l1.217-.456a1.125 1.125 0 0 1 1.37.49l1.296 2.247a1.125 1.125 0 0 1-.26 1.431l-1.003.827c-.293.241-.438.613-.43.992a7.723 7.723 0 0 1 0 .255c-.008.378.137.75.43.991l1.004.827c.424.35.534.955.26 1.43l-1.298 2.247a1.125 1.125 0 0 1-1.369.491l-1.217-.456c-.355-.133-.75-.072-1.076.124a6.47 6.47 0 0 1-.22.128c-.331.183-.581.495-.644.869l-.213 1.281c-.09.543-.56.94-1.11.94h-2.594c-.55 0-1.019-.398-1.11-.94l-.213-1.281c-.062-.374-.312-.686-.644-.87a6.52 6.52 0 0 1-.22-.127c-.325-.196-.72-.257-1.076-.124l-1.217.456a1.125 1.125 0 0 1-1.369-.49l-1.297-2.247a1.125 1.125 0 0 1 .26-1.431l1.004-.827c.292-.24.437-.613.43-.991a6.932 6.932 0 0 1 0-.255c.007-.38-.138-.751-.43-.992l-1.004-.827a1.125 1.125 0 0 1-.26-1.43l1.297-2.247a1.125 1.125 0 0 1 1.37-.491l1.216.456c.356.133.751.072 1.076-.124.072-.044.146-.086.22-.128.332-.183.582-.495.644-.869l.214-1.28Z" /><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" /></svg>Tetapan</a>
+    </nav>
+    <div class="shrink-0 p-3 border-t border-gray-200 dark:border-gray-800">
+      <div class="flex items-center gap-3 px-2 py-2 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-900 cursor-pointer">
+        <div class="w-8 h-8 rounded-full bg-teal-600 flex items-center justify-center text-white text-sm font-bold shrink-0">AH</div>
+        <div class="flex-1 min-w-0"><div class="text-sm font-medium truncate">Ahmad Hafiz</div><div class="text-xs text-gray-500 dark:text-gray-400 truncate">Administrator</div></div>
+        <a href="/login.html" class="text-gray-400 hover:text-red-500 transition-colors shrink-0" title="Log Keluar"><svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0 0 13.5 3h-6a2.25 2.25 0 0 0-2.25 2.25v13.5A2.25 2.25 0 0 0 7.5 21h6a2.25 2.25 0 0 0 2.25-2.25V15m3 0 3-3m0 0-3-3m3 3H9" /></svg></a>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Main content -->
+  <div class="lg:pl-64 flex flex-col min-h-screen">
+    <header class="sticky top-0 z-10 h-16 bg-white dark:bg-gray-950 border-b border-gray-200 dark:border-gray-800 flex items-center gap-3 px-4 lg:px-6 shrink-0">
+      <button @click="sidebarOpen = !sidebarOpen" class="lg:hidden p-2 rounded-lg text-gray-500 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"><svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" /></svg></button>
+      <nav class="flex items-center gap-1.5 text-sm text-gray-500 dark:text-gray-400">
+        <a href="/dashboard.html" class="hover:text-gray-700 dark:hover:text-gray-200">e-PSN</a>
+        <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" /></svg>
+        <a href="/tempahan.html" class="hover:text-gray-700 dark:hover:text-gray-200">Sistem Tempahan</a>
+        <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" /></svg>
+        <span class="text-gray-900 dark:text-gray-100 font-medium">TMP-2025-0090</span>
+      </nav>
+      <div class="ml-auto flex items-center gap-1.5">
+        <button @click="toggleDark()" class="p-2 rounded-lg text-gray-500 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
+          <svg x-show="!dark" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3v2.25m6.364.386-1.591 1.591M21 12h-2.25m-.386 6.364-1.591-1.591M12 18.75V21m-4.773-4.227-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0Z" /></svg>
+          <svg x-show="dark" x-cloak class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M21.752 15.002A9.72 9.72 0 0 1 18 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 0 0 3 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 0 0 9.002-5.998Z" /></svg>
+        </button>
+        <button class="relative p-2 rounded-lg text-gray-500 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"><svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M14.857 17.082a23.848 23.848 0 0 0 5.454-1.31A8.967 8.967 0 0 1 18 9.75V9A6 6 0 0 0 6 9v.75a8.967 8.967 0 0 1-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 0 1-5.714 0m5.714 0a3 3 0 1 1-5.714 0" /></svg><span class="absolute top-1.5 right-1.5 w-2 h-2 bg-red-500 rounded-full ring-2 ring-white dark:ring-gray-950"></span></button>
+        <div class="w-8 h-8 rounded-full bg-teal-600 flex items-center justify-center text-white text-sm font-bold ml-1">AH</div>
+      </div>
+    </header>
+
+    <main class="flex-1 p-4 lg:p-6 space-y-6">
+
+      <!-- Confirm action modal -->
+      <div x-show="confirmAction" x-cloak class="fixed inset-0 z-50 flex items-center justify-center p-4">
+        <div class="absolute inset-0 bg-black/50 backdrop-blur-sm" @click="confirmAction = false"></div>
+        <div class="relative bg-white dark:bg-gray-900 rounded-2xl shadow-2xl w-full max-w-md p-6 space-y-4">
+          <!-- Icon -->
+          <div class="flex justify-center">
+            <div :class="actionType === 'sahkan' ? 'bg-green-100 dark:bg-green-900/40' : 'bg-red-100 dark:bg-red-900/40'" class="w-14 h-14 rounded-full flex items-center justify-center">
+              <svg x-show="actionType === 'sahkan'" class="w-7 h-7 text-green-600 dark:text-green-400" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" /></svg>
+              <svg x-show="actionType === 'tolak'" x-cloak class="w-7 h-7 text-red-600 dark:text-red-400" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="m9.75 9.75 4.5 4.5m0-4.5-4.5 4.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" /></svg>
+            </div>
+          </div>
+          <!-- Title -->
+          <h3 class="text-lg font-bold text-center text-gray-900 dark:text-gray-100" x-text="actionType === 'sahkan' ? 'Sahkan Tempahan?' : 'Tolak Tempahan?'"></h3>
+          <!-- Description -->
+          <p class="text-sm text-center text-gray-500 dark:text-gray-400" x-text="actionType === 'sahkan' ? 'Adakah anda pasti ingin mengesahkan tempahan TMP-2025-0090 bagi SMK Kepong Baru?' : 'Adakah anda pasti ingin menolak tempahan TMP-2025-0090? Sila nyatakan sebab penolakan.'"></p>
+          <!-- Rejection reason textarea -->
+          <div x-show="actionType === 'tolak'" x-cloak>
+            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5">Sebab Penolakan <span class="text-red-500">*</span></label>
+            <textarea rows="3" placeholder="Nyatakan sebab penolakan tempahan ini..." class="w-full bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-600 rounded-lg px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-red-500 dark:text-gray-100 resize-none"></textarea>
+          </div>
+          <!-- Buttons -->
+          <div class="flex gap-3 pt-1">
+            <button @click="confirmAction = false" class="flex-1 px-4 py-2 text-sm font-medium border border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">Batal</button>
+            <button :class="actionType === 'sahkan' ? 'bg-green-600 hover:bg-green-700' : 'bg-red-600 hover:bg-red-700'" class="flex-1 px-4 py-2 text-sm font-medium text-white rounded-lg transition-colors" x-text="actionType === 'sahkan' ? 'Ya, Sahkan' : 'Ya, Tolak'"></button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Page header -->
+      <div class="flex items-start justify-between gap-4 flex-wrap">
+        <div class="flex items-start gap-3">
+          <a href="/tempahan.html" class="mt-0.5 p-2 rounded-lg border border-gray-200 dark:border-gray-700 text-gray-500 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors shrink-0">
+            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18" /></svg>
+          </a>
+          <div>
+            <div class="flex items-center gap-2.5 flex-wrap">
+              <h1 class="text-xl font-bold text-gray-900 dark:text-gray-100">TMP-2025-0090</h1>
+              <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-yellow-100 dark:bg-yellow-900/40 text-yellow-700 dark:text-yellow-400">Menunggu</span>
+            </div>
+            <p class="text-sm text-gray-500 dark:text-gray-400 mt-0.5">SMK Kepong Baru &middot; Bilik Seminar A &middot; 12 Mac 2025</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Approval banner -->
+      <div class="bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-800 rounded-xl p-4 flex items-center gap-4 flex-wrap">
+        <svg class="w-6 h-6 text-yellow-600 dark:text-yellow-400 shrink-0" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" /></svg>
+        <div class="flex-1 min-w-0">
+          <p class="text-sm font-medium text-yellow-800 dark:text-yellow-300">Permohonan ini menunggu kelulusan anda</p>
+          <p class="text-xs text-yellow-600 dark:text-yellow-500 mt-0.5">Diterima pada 10 Mac 2025, 10:45 pagi. Sila semak butiran dan ambil tindakan.</p>
+        </div>
+        <div class="flex items-center gap-2 shrink-0">
+          <button @click="actionType='sahkan'; confirmAction=true" class="inline-flex items-center gap-1.5 px-3 py-1.5 text-sm font-medium bg-green-600 hover:bg-green-700 text-white rounded-lg transition-colors">
+            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5" /></svg>
+            Sahkan
+          </button>
+          <button @click="actionType='tolak'; confirmAction=true" class="inline-flex items-center gap-1.5 px-3 py-1.5 text-sm font-medium bg-red-600 hover:bg-red-700 text-white rounded-lg transition-colors">
+            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" /></svg>
+            Tolak
+          </button>
+        </div>
+      </div>
+
+      <!-- 2-column layout -->
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+
+        <!-- Left: col-span-2 -->
+        <div class="lg:col-span-2 space-y-6">
+
+          <!-- Card 1: Maklumat Tempahan -->
+          <div class="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm p-6">
+            <h2 class="text-base font-semibold text-gray-900 dark:text-gray-100 mb-4">Maklumat Tempahan</h2>
+            <dl class="grid sm:grid-cols-2 gap-4">
+              <div>
+                <dt class="text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wide mb-1">Fasiliti</dt>
+                <dd class="text-sm text-gray-900 dark:text-gray-100 font-medium">Bilik Seminar A, Tingkat 2 Blok B</dd>
+              </div>
+              <div>
+                <dt class="text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wide mb-1">Jenis</dt>
+                <dd class="text-sm text-gray-900 dark:text-gray-100">Program Outreach</dd>
+              </div>
+              <div>
+                <dt class="text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wide mb-1">Tarikh</dt>
+                <dd class="text-sm text-gray-900 dark:text-gray-100">12 Mac 2025 (Rabu)</dd>
+              </div>
+              <div>
+                <dt class="text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wide mb-1">Masa</dt>
+                <dd class="text-sm text-gray-900 dark:text-gray-100">2:00 petang &ndash; 5:00 petang <span class="text-gray-500 dark:text-gray-400">(3 jam)</span></dd>
+              </div>
+              <div class="sm:col-span-2">
+                <dt class="text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wide mb-1">Tujuan</dt>
+                <dd class="text-sm text-gray-900 dark:text-gray-100">Bengkel Sains untuk pelajar Tingkatan 4 dan 5 SMK Kepong Baru</dd>
+              </div>
+              <div>
+                <dt class="text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wide mb-1">Bil. Peserta</dt>
+                <dd class="text-sm text-gray-900 dark:text-gray-100">45 orang</dd>
+              </div>
+              <div>
+                <dt class="text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wide mb-1">Peringkat</dt>
+                <dd class="text-sm text-gray-900 dark:text-gray-100">Menengah (Tingkatan 4-5)</dd>
+              </div>
+              <div>
+                <dt class="text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wide mb-1">Peralatan</dt>
+                <dd class="text-sm text-gray-900 dark:text-gray-100">Projektor, PA System</dd>
+              </div>
+              <div>
+                <dt class="text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wide mb-1">Keperluan Khas</dt>
+                <dd class="text-sm text-gray-500 dark:text-gray-400">Tiada</dd>
+              </div>
+            </dl>
+          </div>
+
+          <!-- Card 2: Maklumat Pemohon -->
+          <div class="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm p-6">
+            <h2 class="text-base font-semibold text-gray-900 dark:text-gray-100 mb-4">Maklumat Pemohon</h2>
+            <dl class="grid sm:grid-cols-2 gap-4">
+              <div>
+                <dt class="text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wide mb-1">Institusi</dt>
+                <dd class="text-sm text-gray-900 dark:text-gray-100 font-medium">SMK Kepong Baru</dd>
+              </div>
+              <div>
+                <dt class="text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wide mb-1">PIC</dt>
+                <dd class="text-sm text-gray-900 dark:text-gray-100">Cikgu Rozita binti Ahmad</dd>
+              </div>
+              <div>
+                <dt class="text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wide mb-1">E-mel</dt>
+                <dd class="text-sm"><a href="mailto:rozita@smkkepong.edu.my" class="text-teal-600 dark:text-teal-400 hover:underline">rozita@smkkepong.edu.my</a></dd>
+              </div>
+              <div>
+                <dt class="text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wide mb-1">Tel</dt>
+                <dd class="text-sm text-gray-900 dark:text-gray-100">03-6241 5678</dd>
+              </div>
+              <div>
+                <dt class="text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wide mb-1">Bil. Pelajar</dt>
+                <dd class="text-sm text-gray-900 dark:text-gray-100">45 orang</dd>
+              </div>
+              <div>
+                <dt class="text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wide mb-1">Bil. Guru</dt>
+                <dd class="text-sm text-gray-900 dark:text-gray-100">3 orang</dd>
+              </div>
+            </dl>
+          </div>
+
+          <!-- Card 3: Sejarah Status -->
+          <div class="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm p-6">
+            <h2 class="text-base font-semibold text-gray-900 dark:text-gray-100 mb-5">Sejarah Status</h2>
+            <ol class="border-l-2 border-teal-200 dark:border-teal-800 space-y-5 ml-3">
+              <!-- Step 1: Permohonan Diterima -->
+              <li class="relative pl-6">
+                <div class="absolute -left-3 top-0 w-5 h-5 rounded-full bg-green-500 flex items-center justify-center ring-4 ring-white dark:ring-gray-800">
+                  <svg class="w-3 h-3 text-white" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5" /></svg>
+                </div>
+                <p class="text-sm font-semibold text-gray-900 dark:text-gray-100">Permohonan Diterima</p>
+                <p class="text-sm text-gray-600 dark:text-gray-400 mt-0.5">Borang diterima dan direkodkan.</p>
+                <p class="text-xs text-gray-400 dark:text-gray-500 mt-1">10 Mac 2025, 10:45 pagi &middot; Sistem</p>
+              </li>
+              <!-- Step 2: Dalam Semakan -->
+              <li class="relative pl-6">
+                <div class="absolute -left-3 top-0 w-5 h-5 rounded-full bg-yellow-400 flex items-center justify-center ring-4 ring-white dark:ring-gray-800">
+                  <span class="w-2 h-2 rounded-full bg-white animate-pulse"></span>
+                </div>
+                <p class="text-sm font-semibold text-gray-900 dark:text-gray-100">Dalam Semakan</p>
+                <p class="text-sm text-gray-600 dark:text-gray-400 mt-0.5">Pegawai sedang menyemak permohonan.</p>
+                <p class="text-xs text-gray-400 dark:text-gray-500 mt-1">11 Mac 2025, 9:00 pagi &middot; Ahmad Hafiz</p>
+              </li>
+            </ol>
+          </div>
+
+        </div>
+
+        <!-- Right: col-span-1 -->
+        <div class="space-y-6">
+
+          <!-- Card 1: Status -->
+          <div class="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm p-5">
+            <h3 class="text-sm font-semibold text-gray-900 dark:text-gray-100 mb-4">Status Semasa</h3>
+            <div class="flex justify-center mb-4">
+              <span class="inline-flex items-center px-4 py-1.5 rounded-full text-sm font-semibold bg-yellow-100 dark:bg-yellow-900/40 text-yellow-700 dark:text-yellow-400">Menunggu Kelulusan</span>
+            </div>
+            <hr class="border-gray-100 dark:border-gray-700 mb-4">
+            <p class="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wide mb-3">Tindakan</p>
+            <div class="space-y-2">
+              <button @click="actionType='sahkan'; confirmAction=true" class="w-full flex items-center justify-center gap-2 px-4 py-2.5 text-sm font-medium bg-green-600 hover:bg-green-700 text-white rounded-lg transition-colors">
+                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5" /></svg>
+                Sahkan Tempahan
+              </button>
+              <button @click="actionType='tolak'; confirmAction=true" class="w-full flex items-center justify-center gap-2 px-4 py-2.5 text-sm font-medium border border-red-300 dark:border-red-700 text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-lg transition-colors">
+                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" /></svg>
+                Tolak Tempahan
+              </button>
+            </div>
+          </div>
+
+          <!-- Card 2: Maklumat Fasiliti -->
+          <div class="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm p-5">
+            <h3 class="text-sm font-semibold text-gray-900 dark:text-gray-100 mb-3">Maklumat Fasiliti</h3>
+            <div class="aspect-video rounded-lg bg-gray-100 dark:bg-gray-700 flex items-center justify-center mb-3">
+              <svg class="w-8 h-8 text-gray-400 dark:text-gray-500" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="m2.25 15.75 5.159-5.159a2.25 2.25 0 0 1 3.182 0l5.159 5.159m-1.5-1.5 1.409-1.409a2.25 2.25 0 0 1 3.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 0 0 1.5-1.5V6a1.5 1.5 0 0 0-1.5-1.5H3.75A1.5 1.5 0 0 0 2.25 6v12a1.5 1.5 0 0 0 1.5 1.5Zm10.5-11.25h.008v.008h-.008V8.25Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z" /></svg>
+            </div>
+            <p class="text-sm font-semibold text-gray-900 dark:text-gray-100 mb-3">Bilik Seminar A</p>
+            <dl class="space-y-2 text-sm">
+              <div class="flex justify-between">
+                <dt class="text-gray-500 dark:text-gray-400">Kapasiti</dt>
+                <dd class="text-gray-900 dark:text-gray-100 font-medium">80 orang</dd>
+              </div>
+              <div class="flex justify-between">
+                <dt class="text-gray-500 dark:text-gray-400">Yuran</dt>
+                <dd class="text-gray-900 dark:text-gray-100 font-medium">RM80/jam</dd>
+              </div>
+              <div class="flex justify-between border-t border-gray-100 dark:border-gray-700 pt-2 mt-1">
+                <dt class="text-gray-700 dark:text-gray-300 font-medium">Jumlah (3j)</dt>
+                <dd class="text-teal-600 dark:text-teal-400 font-bold">RM240</dd>
+              </div>
+              <div class="pt-1">
+                <dt class="text-gray-500 dark:text-gray-400 mb-1.5">Peralatan</dt>
+                <dd class="flex flex-wrap gap-1.5">
+                  <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs bg-teal-50 dark:bg-teal-900/30 text-teal-700 dark:text-teal-400">
+                    <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5" /></svg>
+                    Projektor
+                  </span>
+                  <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs bg-teal-50 dark:bg-teal-900/30 text-teal-700 dark:text-teal-400">
+                    <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5" /></svg>
+                    PA System
+                  </span>
+                  <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs bg-teal-50 dark:bg-teal-900/30 text-teal-700 dark:text-teal-400">
+                    <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5" /></svg>
+                    WiFi
+                  </span>
+                </dd>
+              </div>
+            </dl>
+          </div>
+
+          <!-- Card 3: Maklumat Rekod -->
+          <div class="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm p-5">
+            <h3 class="text-sm font-semibold text-gray-900 dark:text-gray-100 mb-3">Maklumat Rekod</h3>
+            <dl class="space-y-3 text-sm">
+              <div>
+                <dt class="text-xs text-gray-500 dark:text-gray-400 mb-0.5">No. Rujukan</dt>
+                <dd class="font-mono text-teal-600 dark:text-teal-400 font-medium">TMP-2025-0090</dd>
+              </div>
+              <div>
+                <dt class="text-xs text-gray-500 dark:text-gray-400 mb-0.5">Tarikh Mohon</dt>
+                <dd class="text-gray-900 dark:text-gray-100">10 Mac 2025, 10:40 pagi</dd>
+              </div>
+              <div>
+                <dt class="text-xs text-gray-500 dark:text-gray-400 mb-0.5">Tarikh Kemas Kini</dt>
+                <dd class="text-gray-900 dark:text-gray-100">11 Mac 2025, 9:00 pagi</dd>
+              </div>
+            </dl>
+          </div>
+
+        </div>
+      </div>
+
+    </main>
+  </div>
+</body>
+</html>
