@@ -5,10 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Butiran Tempahan | e-PSN</title>
   <script>if(localStorage.theme==='dark'||(!('theme' in localStorage)&&window.matchMedia('(prefers-color-scheme: dark)').matches)){document.documentElement.classList.add('dark')}</script>
-  <script type="module" crossorigin src="/assets/main-DjJkDC82.js"></script>
-  <link rel="stylesheet" crossorigin href="/assets/main-D2wzrlo4.css">
+  <style>[x-cloak]{display:none!important}</style>
+  <script type="module" crossorigin src="/assets/main-DnwZ_oGf.js"></script>
+  <link rel="stylesheet" crossorigin href="/assets/main-DJv_85OI.css">
 </head>
-<body class="bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-100 font-sans antialiased"
+<body x-cloak class="bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-100 font-sans antialiased"
   x-data="{
     sidebarOpen: window.innerWidth >= 1024,
     dark: document.documentElement.classList.contains('dark'),
@@ -21,9 +22,9 @@
   <div x-show="sidebarOpen" x-cloak @click="sidebarOpen = false" class="fixed inset-0 z-20 bg-black/40 backdrop-blur-sm lg:hidden"></div>
 
   <!-- Sidebar -->
-  <aside :class="sidebarOpen ? 'translate-x-0' : '-translate-x-full'" class="fixed inset-y-0 left-0 z-30 w-64 bg-white dark:bg-gray-950 border-r border-gray-200 dark:border-gray-800 flex flex-col transition-transform duration-300 ease-in-out lg:translate-x-0">
+  <aside :class="sidebarOpen ? 'translate-x-0' : '-translate-x-full'" class="fixed inset-y-0 left-0 z-30 w-64 bg-white dark:bg-gray-950 border-r border-gray-200 dark:border-gray-800 flex flex-col transition-transform duration-300 ease-in-out">
     <div class="flex items-center gap-3 px-5 h-16 border-b border-gray-200 dark:border-gray-800 shrink-0">
-      <img src="/assets/logo-LCRRZP8c.png" alt="PSN" class="h-9 w-9 object-contain shrink-0">
+      <img src="/logo.png" alt="PSN" class="h-9 w-9 object-contain shrink-0">
       <div><div class="font-bold text-teal-600 dark:text-teal-400 text-sm leading-tight">e-PSN</div><div class="text-xs text-gray-400 dark:text-gray-500 leading-tight">Portal Admin</div></div>
     </div>
     <nav class="flex-1 overflow-y-auto py-4 px-3 space-y-0.5">
@@ -54,9 +55,9 @@
   </aside>
 
   <!-- Main content -->
-  <div class="lg:pl-64 flex flex-col min-h-screen">
+  <div :class="sidebarOpen ? 'lg:pl-64' : ''" class="flex flex-col min-h-screen transition-all duration-300 ease-in-out">
     <header class="sticky top-0 z-10 h-16 bg-white dark:bg-gray-950 border-b border-gray-200 dark:border-gray-800 flex items-center gap-3 px-4 lg:px-6 shrink-0">
-      <button @click="sidebarOpen = !sidebarOpen" class="lg:hidden p-2 rounded-lg text-gray-500 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"><svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" /></svg></button>
+      <button @click="sidebarOpen = !sidebarOpen" class="p-2 rounded-lg text-gray-500 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"><svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" /></svg></button>
       <nav class="flex items-center gap-1.5 text-sm text-gray-500 dark:text-gray-400">
         <a href="/dashboard.html" class="hover:text-gray-700 dark:hover:text-gray-200">e-PSN</a>
         <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" /></svg>
