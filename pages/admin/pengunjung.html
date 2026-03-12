@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pengurusan Pengunjung | e-PSN</title>
+  <script>if(localStorage.theme==='dark'||(!('theme' in localStorage)&&window.matchMedia('(prefers-color-scheme: dark)').matches)){document.documentElement.classList.add('dark')}</script>
+  <script type="module" src="/src/main.js"></script>
+  <style>[x-cloak]{display:none!important}</style>
+</head>
+<body x-cloak class="bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-100 font-sans antialiased"
+  x-data="{
+    sidebarOpen: window.innerWidth >= 1024,
+    dark: document.documentElement.classList.contains('dark'),
+    period: 'bulan',
+    toggleDark() { this.dark = !this.dark; document.documentElement.classList.toggle('dark', this.dark); localStorage.setItem('theme', this.dark ? 'dark' : 'light'); }
+  }">
+
+  <!-- Mobile overlay -->
+  <div x-show="sidebarOpen" x-cloak @click="sidebarOpen = false" class="fixed inset-0 z-20 bg-black/40 backdrop-blur-sm lg:hidden"></div>
+
+  <!-- SIDEBAR -->
+  <aside :class="sidebarOpen ? 'translate-x-0' : '-translate-x-full'"
+         class="fixed inset-y-0 left-0 z-30 w-64 bg-white dark:bg-gray-950 border-r border-gray-200 dark:border-gray-800 flex flex-col transition-transform duration-300 ease-in-out">
+    <div class="flex items-center gap-3 px-5 h-16 border-b border-gray-200 dark:border-gray-800 shrink-0">
+      <img src="/logo.png" alt="PSN" class="h-9 w-9 object-contain shrink-0">
+      <div>
+        <div class="font-bold text-teal-600 dark:text-teal-400 text-sm leading-tight">e-PSN</div>
+        <div class="text-xs text-gray-400 dark:text-gray-500 leading-tight">Portal Admin</div>
+      </div>
+    </div>
+    <nav class="flex-1 overflow-y-auto py-4 px-3 space-y-0.5">
+      <p class="px-3 pb-1 text-xs font-semibold text-gray-400 dark:text-gray-600 uppercase tracking-wider">Utama</p>
+      <a href="/dashboard.html" class="nav-inactive flex items-center gap-3 px-3 py-2 rounded-lg text-sm transition-colors">
+        <svg class="w-5 h-5 shrink-0" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="m2.25 12 8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" /></svg>
+        Dashboard
+      </a>
+      <p class="px-3 pb-1 pt-4 text-xs font-semibold text-gray-400 dark:text-gray-600 uppercase tracking-wider">Portal</p>
+      <a href="/admin/takwim.html" class="nav-inactive flex items-center gap-3 px-3 py-2 rounded-lg text-sm transition-colors">
+        <svg class="w-5 h-5 shrink-0" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5" /></svg>
+        Kalendar Takwim
+        <span class="ml-auto text-xs bg-teal-100 dark:bg-teal-900/40 text-teal-700 dark:text-teal-400 px-1.5 py-0.5 rounded-full font-semibold">5</span>
+      </a>
+      <a href="/admin/galeri.html" class="nav-inactive flex items-center gap-3 px-3 py-2 rounded-lg text-sm transition-colors">
+        <svg class="w-5 h-5 shrink-0" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="m2.25 15.75 5.159-5.159a2.25 2.25 0 0 1 3.182 0l5.159 5.159m-1.5-1.5 1.409-1.409a2.25 2.25 0 0 1 3.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 0 0 1.5-1.5V6a1.5 1.5 0 0 0-1.5-1.5H3.75A1.5 1.5 0 0 0 2.25 6v12a1.5 1.5 0 0 0 1.5 1.5Zm10.5-11.25h.008v.008h-.008V8.25Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z" /></svg>
+        Galeri &amp; Program
+      </a>
+      <p class="px-3 pb-1 pt-4 text-xs font-semibold text-gray-400 dark:text-gray-600 uppercase tracking-wider">Operasi</p>
+      <a href="/tempahan.html" class="nav-inactive flex items-center gap-3 px-3 py-2 rounded-lg text-sm transition-colors">
+        <svg class="w-5 h-5 shrink-0" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5" /></svg>
+        Sistem Tempahan
+        <span class="ml-auto text-xs bg-yellow-100 dark:bg-yellow-900/40 text-yellow-700 dark:text-yellow-400 px-1.5 py-0.5 rounded-full font-semibold">5</span>
+      </a>
+      <a href="/admin/fasiliti.html" class="nav-inactive flex items-center gap-3 px-3 py-2 rounded-lg text-sm transition-colors">
+        <svg class="w-5 h-5 shrink-0" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 21h16.5M4.5 3h15M5.25 3v18m13.5-18v18M9 6.75h1.5m-1.5 3h1.5m-1.5 3h1.5m3-6H15m-1.5 3H15m-1.5 3H15M9 21v-3.375c0-.621.504-1.125 1.125-1.125h3.75c.621 0 1.125.504 1.125 1.125V21" /></svg>
+        Pengurusan Fasiliti
+      </a>
+      <a href="/admin/operasi.html" class="nav-inactive flex items-center gap-3 px-3 py-2 rounded-lg text-sm transition-colors">
+        <svg class="w-5 h-5 shrink-0" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12h3.75M9 15h3.75M9 18h3.75m3 .75H18a2.25 2.25 0 0 0 2.25-2.25V6.108c0-1.135-.845-2.098-1.976-2.192a48.424 48.424 0 0 0-1.123-.08m-5.801 0c-.065.21-.1.433-.1.664 0 .414.336.75.75.75h4.5a.75.75 0 0 0 .75-.75 2.25 2.25 0 0 0-.1-.664m-5.8 0A2.251 2.251 0 0 1 13.5 2.25H15c1.012 0 1.867.668 2.15 1.586m-5.8 0c-.376.023-.75.05-1.124.08C9.095 4.01 8.25 4.973 8.25 6.108V8.25m0 0H4.875c-.621 0-1.125.504-1.125 1.125v11.25c0 .621.504 1.125 1.125 1.125h9.75c.621 0 1.125-.504 1.125-1.125V9.375c0-.621-.504-1.125-1.125-1.125H8.25ZM6.75 12h.008v.008H6.75V12Zm0 3h.008v.008H6.75V15Zm0 3h.008v.008H6.75V18Z" /></svg>
+        Log Operasi Harian
+      </a>
+      <p class="px-3 pb-1 pt-4 text-xs font-semibold text-gray-400 dark:text-gray-600 uppercase tracking-wider">Khidmat Pelanggan</p>
+      <a href="/aduan.html" class="nav-inactive flex items-center gap-3 px-3 py-2 rounded-lg text-sm transition-colors">
+        <svg class="w-5 h-5 shrink-0" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126ZM12 15.75h.007v.008H12v-.008Z" /></svg>
+        Sistem Aduan
+        <span class="ml-auto text-xs bg-red-100 dark:bg-red-900/40 text-red-700 dark:text-red-400 px-1.5 py-0.5 rounded-full font-semibold">12</span>
+      </a>
+      <a href="/admin/laporan.html" class="nav-inactive flex items-center gap-3 px-3 py-2 rounded-lg text-sm transition-colors">
+        <svg class="w-5 h-5 shrink-0" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 0 1 3 19.875v-6.75ZM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V8.625ZM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V4.125Z" /></svg>
+        Laporan &amp; Statistik
+      </a>
+      <p class="px-3 pb-1 pt-4 text-xs font-semibold text-gray-400 dark:text-gray-600 uppercase tracking-wider">Pengurusan</p>
+      <a href="/admin/pengunjung.html" class="nav-active flex items-center gap-3 px-3 py-2 rounded-lg text-sm transition-colors">
+        <svg class="w-5 h-5 shrink-0" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M18 18.72a9.094 9.094 0 0 0 3.741-.479 3 3 0 0 0-4.682-2.72m.94 3.198.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0 1 12 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 0 1 6 18.719m12 0a5.971 5.971 0 0 0-.941-3.197m0 0A5.995 5.995 0 0 0 12 12.75a5.995 5.995 0 0 0-5.058 2.772m0 0a3 3 0 0 0-4.681 2.72 8.986 8.986 0 0 0 3.74.477m.94-3.197a5.971 5.971 0 0 0-.94 3.197M15 6.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Zm6 3a2.25 2.25 0 1 1-4.5 0 2.25 2.25 0 0 1 4.5 0Zm-13.5 0a2.25 2.25 0 1 1-4.5 0 2.25 2.25 0 0 1 4.5 0Z" /></svg>
+        Pengurusan Pengunjung
+      </a>
+      <a href="/pengguna.html" class="nav-inactive flex items-center gap-3 px-3 py-2 rounded-lg text-sm transition-colors">
+        <svg class="w-5 h-5 shrink-0" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19.128a9.38 9.38 0 0 0 2.625.372 9.337 9.337 0 0 0 4.121-.952 4.125 4.125 0 0 0-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 0 1 8.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0 1 11.964-3.07M12 6.375a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0Zm8.25 2.25a2.625 2.625 0 1 1-5.25 0 2.625 2.625 0 0 1 5.25 0Z" /></svg>
+        Pengurusan Pengguna
+      </a>
+      <a href="#" class="nav-inactive flex items-center gap-3 px-3 py-2 rounded-lg text-sm transition-colors">
+        <svg class="w-5 h-5 shrink-0" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M9.594 3.94c.09-.542.56-.94 1.11-.94h2.593c.55 0 1.02.398 1.11.94l.213 1.281c.063.374.313.686.645.87.074.04.147.083.22.127.325.196.72.257 1.075.124l1.217-.456a1.125 1.125 0 0 1 1.37.49l1.296 2.247a1.125 1.125 0 0 1-.26 1.431l-1.003.827c-.293.241-.438.613-.43.992a7.723 7.723 0 0 1 0 .255c-.008.378.137.75.43.991l1.004.827c.424.35.534.955.26 1.43l-1.298 2.247a1.125 1.125 0 0 1-1.369.491l-1.217-.456c-.355-.133-.75-.072-1.076.124a6.47 6.47 0 0 1-.22.128c-.331.183-.581.495-.644.869l-.213 1.281c-.09.543-.56.94-1.11.94h-2.594c-.55 0-1.019-.398-1.11-.94l-.213-1.281c-.062-.374-.312-.686-.644-.87a6.52 6.52 0 0 1-.22-.127c-.325-.196-.72-.257-1.076-.124l-1.217.456a1.125 1.125 0 0 1-1.369-.49l-1.297-2.247a1.125 1.125 0 0 1 .26-1.431l1.004-.827c.292-.24.437-.613.43-.991a6.932 6.932 0 0 1 0-.255c.007-.38-.138-.751-.43-.992l-1.004-.827a1.125 1.125 0 0 1-.26-1.43l1.297-2.247a1.125 1.125 0 0 1 1.37-.491l1.216.456c.356.133.751.072 1.076-.124.072-.044.146-.086.22-.128.332-.183.582-.495.644-.869l.214-1.28Z" /><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" /></svg>
+        Tetapan
+      </a>
+    </nav>
+    <div class="shrink-0 p-3 border-t border-gray-200 dark:border-gray-800">
+      <div class="flex items-center gap-3 px-2 py-2 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-900 transition-colors cursor-pointer">
+        <div class="w-8 h-8 rounded-full bg-teal-600 flex items-center justify-center text-white text-sm font-bold shrink-0">AH</div>
+        <div class="flex-1 min-w-0">
+          <div class="text-sm font-medium text-gray-900 dark:text-gray-100 truncate">Ahmad Hafiz</div>
+          <div class="text-xs text-gray-500 dark:text-gray-400 truncate">Administrator</div>
+        </div>
+        <a href="/login.html" class="text-gray-400 hover:text-red-500 transition-colors shrink-0" title="Log Keluar">
+          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0 0 13.5 3h-6a2.25 2.25 0 0 0-2.25 2.25v13.5A2.25 2.25 0 0 0 7.5 21h6a2.25 2.25 0 0 0 2.25-2.25V15m3 0 3-3m0 0-3-3m3 3H9" /></svg>
+        </a>
+      </div>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <div :class="sidebarOpen ? 'lg:pl-64' : ''" class="flex flex-col min-h-screen transition-all duration-300 ease-in-out">
+    <header class="sticky top-0 z-10 h-16 bg-white dark:bg-gray-950 border-b border-gray-200 dark:border-gray-800 flex items-center gap-3 px-4 lg:px-6 shrink-0">
+      <button @click="sidebarOpen = !sidebarOpen" class="p-2 rounded-lg text-gray-500 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
+        <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" /></svg>
+      </button>
+      <nav class="flex items-center gap-1.5 text-sm text-gray-500 dark:text-gray-400">
+        <a href="/dashboard.html" class="hover:text-gray-700 dark:hover:text-gray-200">e-PSN</a>
+        <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" /></svg>
+        <span class="text-gray-900 dark:text-gray-100 font-medium">Pengurusan Pengunjung</span>
+      </nav>
+      <div class="ml-auto flex items-center gap-1.5">
+        <button @click="toggleDark()" title="Tukar Tema" class="p-2 rounded-lg text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
+          <svg x-show="!dark" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3v2.25m6.364.386-1.591 1.591M21 12h-2.25m-.386 6.364-1.591-1.591M12 18.75V21m-4.773-4.227-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0Z" /></svg>
+          <svg x-show="dark" x-cloak class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M21.752 15.002A9.72 9.72 0 0 1 18 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 0 0 3 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 0 0 9.002-5.998Z" /></svg>
+        </button>
+        <div class="w-8 h-8 rounded-full bg-teal-600 flex items-center justify-center text-white text-sm font-bold cursor-pointer ml-1">AH</div>
+      </div>
+    </header>
+
+    <main class="flex-1 p-4 lg:p-6 space-y-6">
+
+      <!-- Page header + Period toggle -->
+      <div class="flex items-center justify-between flex-wrap gap-4">
+        <div>
+          <h1 class="text-xl font-bold text-gray-900 dark:text-white">Pengurusan Pengunjung</h1>
+          <p class="text-sm text-gray-500 dark:text-gray-400 mt-0.5">Statistik dan rekod kehadiran pengunjung PSN</p>
+        </div>
+        <div class="flex items-center gap-1 p-1 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-sm">
+          <button @click="period='hari'" :class="period==='hari' ? 'bg-teal-600 text-white shadow-sm' : 'text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700'" class="px-3 py-1.5 rounded-md text-xs font-medium transition-all">Hari Ini</button>
+          <button @click="period='minggu'" :class="period==='minggu' ? 'bg-teal-600 text-white shadow-sm' : 'text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700'" class="px-3 py-1.5 rounded-md text-xs font-medium transition-all">Minggu Ini</button>
+          <button @click="period='bulan'" :class="period==='bulan' ? 'bg-teal-600 text-white shadow-sm' : 'text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700'" class="px-3 py-1.5 rounded-md text-xs font-medium transition-all">Bulan Ini</button>
+          <button @click="period='tahun'" :class="period==='tahun' ? 'bg-teal-600 text-white shadow-sm' : 'text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700'" class="px-3 py-1.5 rounded-md text-xs font-medium transition-all">Tahun Ini</button>
+        </div>
+      </div>
+
+      <!-- Stat Cards -->
+      <div class="grid sm:grid-cols-2 xl:grid-cols-4 gap-4">
+        <div class="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-5 shadow-sm">
+          <div class="flex items-center justify-between mb-3">
+            <span class="text-sm font-medium text-gray-500 dark:text-gray-400">Jumlah Pengunjung</span>
+            <div class="w-9 h-9 rounded-lg bg-teal-50 dark:bg-teal-900/30 flex items-center justify-center">
+              <svg class="w-5 h-5 text-teal-600 dark:text-teal-400" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19.128a9.38 9.38 0 0 0 2.625.372 9.337 9.337 0 0 0 4.121-.952 4.125 4.125 0 0 0-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 0 1 8.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0 1 11.964-3.07M12 6.375a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0Zm8.25 2.25a2.625 2.625 0 1 1-5.25 0 2.625 2.625 0 0 1 5.25 0Z" /></svg>
+            </div>
+          </div>
+          <div class="text-3xl font-bold text-gray-900 dark:text-white" x-text="period==='hari' ? '342' : period==='minggu' ? '2,148' : period==='bulan' ? '9,742' : '87,320'"></div>
+          <div class="mt-1.5 text-xs text-green-600 dark:text-green-400 flex items-center gap-1">
+            <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 10.5 12 3m0 0 7.5 7.5M12 3v18" /></svg>
+            +12% berbanding tempoh lepas
+          </div>
+        </div>
+        <div class="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-5 shadow-sm">
+          <div class="flex items-center justify-between mb-3">
+            <span class="text-sm font-medium text-gray-500 dark:text-gray-400">Pelajar</span>
+            <div class="w-9 h-9 rounded-lg bg-blue-50 dark:bg-blue-900/30 flex items-center justify-center">
+              <svg class="w-5 h-5 text-blue-600 dark:text-blue-400" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M4.26 10.147a60.438 60.438 0 0 0-.491 6.347A48.62 48.62 0 0 1 12 20.904a48.62 48.62 0 0 1 8.232-4.41 60.46 60.46 0 0 0-.491-6.347m-15.482 0a50.636 50.636 0 0 0-2.658-.813A59.906 59.906 0 0 1 12 3.493a59.903 59.903 0 0 1 10.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.717 50.717 0 0 1 12 13.489a50.702 50.702 0 0 1 3.741-3.342M6.75 15a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Zm0 0v-3.675A55.378 55.378 0 0 1 12 8.443m-7.007 11.55A5.981 5.981 0 0 0 6.75 15.75v-1.5" /></svg>
+            </div>
+          </div>
+          <div class="text-3xl font-bold text-gray-900 dark:text-white" x-text="period==='hari' ? '218' : period==='minggu' ? '1,340' : period==='bulan' ? '6,180' : '54,200'"></div>
+          <div class="mt-1.5 text-xs text-gray-500 dark:text-gray-400">63% daripada jumlah</div>
+        </div>
+        <div class="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-5 shadow-sm">
+          <div class="flex items-center justify-between mb-3">
+            <span class="text-sm font-medium text-gray-500 dark:text-gray-400">Dewasa Umum</span>
+            <div class="w-9 h-9 rounded-lg bg-purple-50 dark:bg-purple-900/30 flex items-center justify-center">
+              <svg class="w-5 h-5 text-purple-600 dark:text-purple-400" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" /></svg>
+            </div>
+          </div>
+          <div class="text-3xl font-bold text-gray-900 dark:text-white" x-text="period==='hari' ? '98' : period==='minggu' ? '612' : period==='bulan' ? '2,840' : '25,440'"></div>
+          <div class="mt-1.5 text-xs text-gray-500 dark:text-gray-400">29% daripada jumlah</div>
+        </div>
+        <div class="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-5 shadow-sm">
+          <div class="flex items-center justify-between mb-3">
+            <span class="text-sm font-medium text-gray-500 dark:text-gray-400">Kumpulan Khas</span>
+            <div class="w-9 h-9 rounded-lg bg-orange-50 dark:bg-orange-900/30 flex items-center justify-center">
+              <svg class="w-5 h-5 text-orange-600 dark:text-orange-400" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z" /></svg>
+            </div>
+          </div>
+          <div class="text-3xl font-bold text-gray-900 dark:text-white" x-text="period==='hari' ? '26' : period==='minggu' ? '196' : period==='bulan' ? '722' : '7,680'"></div>
+          <div class="mt-1.5 text-xs text-gray-500 dark:text-gray-400">OKU &amp; Warga Emas</div>
+        </div>
+      </div>
+
+      <div class="grid lg:grid-cols-2 gap-6">
+
+        <!-- Bar Chart: Daily Visitors -->
+        <div class="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm p-5">
+          <div class="flex items-center justify-between mb-5">
+            <h2 class="font-semibold text-gray-900 dark:text-white text-sm">Pengunjung Harian (Mac 2025)</h2>
+          </div>
+          <div class="space-y-2.5">
+            <div class="flex items-center gap-3 text-xs">
+              <span class="w-8 text-right text-gray-400 shrink-0">1</span>
+              <div class="flex-1 h-5 bg-gray-100 dark:bg-gray-700 rounded overflow-hidden">
+                <div class="h-full bg-teal-500 rounded" style="width: 45%"></div>
+              </div>
+              <span class="w-8 text-gray-600 dark:text-gray-400 shrink-0">278</span>
+            </div>
+            <div class="flex items-center gap-3 text-xs">
+              <span class="w-8 text-right text-gray-400 shrink-0">2</span>
+              <div class="flex-1 h-5 bg-gray-100 dark:bg-gray-700 rounded overflow-hidden">
+                <div class="h-full bg-teal-500 rounded" style="width: 60%"></div>
+              </div>
+              <span class="w-8 text-gray-600 dark:text-gray-400 shrink-0">368</span>
+            </div>
+            <div class="flex items-center gap-3 text-xs">
+              <span class="w-8 text-right text-gray-400 shrink-0">3</span>
+              <div class="flex-1 h-5 bg-gray-100 dark:bg-gray-700 rounded overflow-hidden">
+                <div class="h-full bg-teal-500 rounded" style="width: 38%"></div>
+              </div>
+              <span class="w-8 text-gray-600 dark:text-gray-400 shrink-0">234</span>
+            </div>
+            <div class="flex items-center gap-3 text-xs">
+              <span class="w-8 text-right text-gray-400 shrink-0">4</span>
+              <div class="flex-1 h-5 bg-gray-100 dark:bg-gray-700 rounded overflow-hidden">
+                <div class="h-full bg-teal-500 rounded" style="width: 75%"></div>
+              </div>
+              <span class="w-8 text-gray-600 dark:text-gray-400 shrink-0">462</span>
+            </div>
+            <div class="flex items-center gap-3 text-xs">
+              <span class="w-8 text-right text-gray-400 shrink-0">5</span>
+              <div class="flex-1 h-5 bg-gray-100 dark:bg-gray-700 rounded overflow-hidden">
+                <div class="h-full bg-teal-500 rounded" style="width: 82%"></div>
+              </div>
+              <span class="w-8 text-gray-600 dark:text-gray-400 shrink-0">504</span>
+            </div>
+            <div class="flex items-center gap-3 text-xs">
+              <span class="w-8 text-right text-gray-400 shrink-0">6</span>
+              <div class="flex-1 h-5 bg-gray-100 dark:bg-gray-700 rounded overflow-hidden">
+                <div class="h-full bg-teal-500 rounded" style="width: 55%"></div>
+              </div>
+              <span class="w-8 text-gray-600 dark:text-gray-400 shrink-0">338</span>
+            </div>
+            <div class="flex items-center gap-3 text-xs">
+              <span class="w-8 text-right text-gray-400 shrink-0">7</span>
+              <div class="flex-1 h-5 bg-gray-100 dark:bg-gray-700 rounded overflow-hidden">
+                <div class="h-full bg-blue-500 rounded" style="width: 30%"></div>
+              </div>
+              <span class="w-8 text-gray-600 dark:text-gray-400 shrink-0">185</span>
+            </div>
+            <div class="flex items-center gap-3 text-xs">
+              <span class="w-8 text-right text-gray-400 shrink-0">8</span>
+              <div class="flex-1 h-5 bg-gray-100 dark:bg-gray-700 rounded overflow-hidden">
+                <div class="h-full bg-teal-500 rounded" style="width: 68%"></div>
+              </div>
+              <span class="w-8 text-gray-600 dark:text-gray-400 shrink-0">418</span>
+            </div>
+            <div class="flex items-center gap-3 text-xs">
+              <span class="w-8 text-right text-gray-400 shrink-0">9</span>
+              <div class="flex-1 h-5 bg-gray-100 dark:bg-gray-700 rounded overflow-hidden">
+                <div class="h-full bg-teal-500 rounded" style="width: 71%"></div>
+              </div>
+              <span class="w-8 text-gray-600 dark:text-gray-400 shrink-0">436</span>
+            </div>
+            <div class="flex items-center gap-3 text-xs">
+              <span class="w-8 text-right text-gray-400 shrink-0">10</span>
+              <div class="flex-1 h-5 bg-gray-100 dark:bg-gray-700 rounded overflow-hidden">
+                <div class="h-full bg-teal-500 rounded" style="width: 100%"></div>
+              </div>
+              <span class="w-8 text-gray-600 dark:text-gray-400 shrink-0">614</span>
+            </div>
+          </div>
+          <div class="mt-3 flex items-center gap-4 text-xs text-gray-400">
+            <span class="flex items-center gap-1"><span class="w-3 h-3 rounded bg-teal-500 shrink-0"></span> Hari Bekerja</span>
+            <span class="flex items-center gap-1"><span class="w-3 h-3 rounded bg-blue-500 shrink-0"></span> Hujung Minggu</span>
+          </div>
+        </div>
+
+        <!-- Category Breakdown -->
+        <div class="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm p-5">
+          <h2 class="font-semibold text-gray-900 dark:text-white text-sm mb-5">Pecahan Kategori Pengunjung</h2>
+          <div class="space-y-4 mb-6">
+            <div>
+              <div class="flex items-center justify-between text-sm mb-1.5">
+                <span class="text-gray-700 dark:text-gray-300">Pelajar Sekolah Rendah</span>
+                <span class="font-semibold text-gray-900 dark:text-white">3,240 (33%)</span>
+              </div>
+              <div class="h-3 bg-gray-100 dark:bg-gray-700 rounded-full overflow-hidden">
+                <div class="h-full bg-teal-500 rounded-full" style="width: 33%"></div>
+              </div>
+            </div>
+            <div>
+              <div class="flex items-center justify-between text-sm mb-1.5">
+                <span class="text-gray-700 dark:text-gray-300">Pelajar Sekolah Menengah</span>
+                <span class="font-semibold text-gray-900 dark:text-white">2,940 (30%)</span>
+              </div>
+              <div class="h-3 bg-gray-100 dark:bg-gray-700 rounded-full overflow-hidden">
+                <div class="h-full bg-blue-500 rounded-full" style="width: 30%"></div>
+              </div>
+            </div>
+            <div>
+              <div class="flex items-center justify-between text-sm mb-1.5">
+                <span class="text-gray-700 dark:text-gray-300">Dewasa Umum</span>
+                <span class="font-semibold text-gray-900 dark:text-white">2,840 (29%)</span>
+              </div>
+              <div class="h-3 bg-gray-100 dark:bg-gray-700 rounded-full overflow-hidden">
+                <div class="h-full bg-purple-500 rounded-full" style="width: 29%"></div>
+              </div>
+            </div>
+            <div>
+              <div class="flex items-center justify-between text-sm mb-1.5">
+                <span class="text-gray-700 dark:text-gray-300">Warga Emas</span>
+                <span class="font-semibold text-gray-900 dark:text-white">490 (5%)</span>
+              </div>
+              <div class="h-3 bg-gray-100 dark:bg-gray-700 rounded-full overflow-hidden">
+                <div class="h-full bg-orange-400 rounded-full" style="width: 5%"></div>
+              </div>
+            </div>
+            <div>
+              <div class="flex items-center justify-between text-sm mb-1.5">
+                <span class="text-gray-700 dark:text-gray-300">OKU</span>
+                <span class="font-semibold text-gray-900 dark:text-white">232 (2%)</span>
+              </div>
+              <div class="h-3 bg-gray-100 dark:bg-gray-700 rounded-full overflow-hidden">
+                <div class="h-full bg-pink-400 rounded-full" style="width: 2%"></div>
+              </div>
+            </div>
+            <div>
+              <div class="flex items-center justify-between text-sm mb-1.5">
+                <span class="text-gray-700 dark:text-gray-300">Lain-lain</span>
+                <span class="font-semibold text-gray-900 dark:text-white">100 (1%)</span>
+              </div>
+              <div class="h-3 bg-gray-100 dark:bg-gray-700 rounded-full overflow-hidden">
+                <div class="h-full bg-gray-400 rounded-full" style="width: 1%"></div>
+              </div>
+            </div>
+          </div>
+          <div class="text-center pt-4 border-t border-gray-100 dark:border-gray-700">
+            <span class="text-2xl font-bold text-teal-600 dark:text-teal-400">9,742</span>
+            <span class="text-sm text-gray-500 dark:text-gray-400 ml-2">jumlah bulan ini</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Monthly Table -->
+      <div class="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm overflow-hidden">
+        <div class="flex items-center justify-between px-5 py-4 border-b border-gray-100 dark:border-gray-700">
+          <h2 class="font-semibold text-gray-900 dark:text-white text-sm">Laporan Bulanan 2025</h2>
+          <button class="inline-flex items-center gap-2 text-xs text-teal-600 dark:text-teal-400 hover:underline font-medium">
+            <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3" /></svg>
+            Muat Turun CSV
+          </button>
+        </div>
+        <div class="overflow-x-auto">
+          <table class="w-full text-sm">
+            <thead>
+              <tr class="border-b border-gray-100 dark:border-gray-700 bg-gray-50 dark:bg-gray-900/50">
+                <th class="py-3 px-5 text-left text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wide">Bulan</th>
+                <th class="py-3 px-5 text-right text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wide">Jumlah</th>
+                <th class="py-3 px-5 text-right text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wide">Pelajar</th>
+                <th class="py-3 px-5 text-right text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wide">Dewasa</th>
+                <th class="py-3 px-5 text-right text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wide">Khas</th>
+                <th class="py-3 px-5 text-right text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wide">Perubahan</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-gray-100 dark:divide-gray-700">
+              <tr class="hover:bg-gray-50 dark:hover:bg-gray-700/30 transition-colors">
+                <td class="py-3 px-5 font-medium text-gray-900 dark:text-gray-100">Januari 2025</td>
+                <td class="py-3 px-5 text-right text-gray-700 dark:text-gray-300 font-semibold">7,820</td>
+                <td class="py-3 px-5 text-right text-gray-500 dark:text-gray-400">4,950</td>
+                <td class="py-3 px-5 text-right text-gray-500 dark:text-gray-400">2,340</td>
+                <td class="py-3 px-5 text-right text-gray-500 dark:text-gray-400">530</td>
+                <td class="py-3 px-5 text-right"><span class="text-green-600 dark:text-green-400 text-xs font-medium">+8.2%</span></td>
+              </tr>
+              <tr class="hover:bg-gray-50 dark:hover:bg-gray-700/30 transition-colors">
+                <td class="py-3 px-5 font-medium text-gray-900 dark:text-gray-100">Februari 2025</td>
+                <td class="py-3 px-5 text-right text-gray-700 dark:text-gray-300 font-semibold">8,410</td>
+                <td class="py-3 px-5 text-right text-gray-500 dark:text-gray-400">5,320</td>
+                <td class="py-3 px-5 text-right text-gray-500 dark:text-gray-400">2,480</td>
+                <td class="py-3 px-5 text-right text-gray-500 dark:text-gray-400">610</td>
+                <td class="py-3 px-5 text-right"><span class="text-green-600 dark:text-green-400 text-xs font-medium">+7.5%</span></td>
+              </tr>
+              <tr class="hover:bg-gray-50 dark:hover:bg-gray-700/30 transition-colors bg-teal-50/50 dark:bg-teal-900/10">
+                <td class="py-3 px-5 font-medium text-teal-700 dark:text-teal-300">Mac 2025 (semasa)</td>
+                <td class="py-3 px-5 text-right text-teal-700 dark:text-teal-300 font-bold">9,742</td>
+                <td class="py-3 px-5 text-right text-teal-600 dark:text-teal-400">6,180</td>
+                <td class="py-3 px-5 text-right text-teal-600 dark:text-teal-400">2,840</td>
+                <td class="py-3 px-5 text-right text-teal-600 dark:text-teal-400">722</td>
+                <td class="py-3 px-5 text-right"><span class="text-green-600 dark:text-green-400 text-xs font-medium">+15.8%</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </main>
+  </div>
+
+</body>
+</html>

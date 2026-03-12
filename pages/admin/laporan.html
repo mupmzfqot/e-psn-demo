@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Laporan &amp; Statistik | e-PSN</title>
+  <script>if(localStorage.theme==='dark'||(!('theme' in localStorage)&&window.matchMedia('(prefers-color-scheme: dark)').matches)){document.documentElement.classList.add('dark')}</script>
+  <script type="module" src="/src/main.js"></script>
+  <style>[x-cloak]{display:none!important}</style>
+</head>
+<body x-cloak class="bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-100 font-sans antialiased"
+  x-data="{
+    sidebarOpen: window.innerWidth >= 1024,
+    dark: document.documentElement.classList.contains('dark'),
+    tab: 'aduan',
+    toggleDark() { this.dark = !this.dark; document.documentElement.classList.toggle('dark', this.dark); localStorage.setItem('theme', this.dark ? 'dark' : 'light'); }
+  }">
+
+  <div x-show="sidebarOpen" x-cloak @click="sidebarOpen = false" class="fixed inset-0 z-20 bg-black/40 backdrop-blur-sm lg:hidden"></div>
+
+  <!-- SIDEBAR (Laporan & Statistik = nav-active) -->
+  <aside :class="sidebarOpen ? 'translate-x-0' : '-translate-x-full'"
+         class="fixed inset-y-0 left-0 z-30 w-64 bg-white dark:bg-gray-950 border-r border-gray-200 dark:border-gray-800 flex flex-col transition-transform duration-300 ease-in-out">
+    <div class="flex items-center gap-3 px-5 h-16 border-b border-gray-200 dark:border-gray-800 shrink-0">
+      <img src="/logo.png" alt="PSN" class="h-9 w-9 object-contain shrink-0">
+      <div>
+        <div class="font-bold text-teal-600 dark:text-teal-400 text-sm leading-tight">e-PSN</div>
+        <div class="text-xs text-gray-400 dark:text-gray-500 leading-tight">Portal Admin</div>
+      </div>
+    </div>
+    <nav class="flex-1 overflow-y-auto py-4 px-3 space-y-0.5">
+      <p class="px-3 pb-1 text-xs font-semibold text-gray-400 dark:text-gray-600 uppercase tracking-wider">Utama</p>
+      <a href="/dashboard.html" class="nav-inactive flex items-center gap-3 px-3 py-2 rounded-lg text-sm transition-colors">
+        <svg class="w-5 h-5 shrink-0" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="m2.25 12 8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" /></svg>
+        Dashboard
+      </a>
+      <p class="px-3 pb-1 pt-4 text-xs font-semibold text-gray-400 dark:text-gray-600 uppercase tracking-wider">Portal</p>
+      <a href="/admin/takwim.html" class="nav-inactive flex items-center gap-3 px-3 py-2 rounded-lg text-sm transition-colors">
+        <svg class="w-5 h-5 shrink-0" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5" /></svg>
+        Kalendar Takwim
+        <span class="ml-auto text-xs bg-teal-100 dark:bg-teal-900/40 text-teal-700 dark:text-teal-400 px-1.5 py-0.5 rounded-full font-semibold">5</span>
+      </a>
+      <a href="/admin/galeri.html" class="nav-inactive flex items-center gap-3 px-3 py-2 rounded-lg text-sm transition-colors">
+        <svg class="w-5 h-5 shrink-0" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="m2.25 15.75 5.159-5.159a2.25 2.25 0 0 1 3.182 0l5.159 5.159m-1.5-1.5 1.409-1.409a2.25 2.25 0 0 1 3.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 0 0 1.5-1.5V6a1.5 1.5 0 0 0-1.5-1.5H3.75A1.5 1.5 0 0 0 2.25 6v12a1.5 1.5 0 0 0 1.5 1.5Zm10.5-11.25h.008v.008h-.008V8.25Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z" /></svg>
+        Galeri &amp; Program
+      </a>
+      <p class="px-3 pb-1 pt-4 text-xs font-semibold text-gray-400 dark:text-gray-600 uppercase tracking-wider">Operasi</p>
+      <a href="/tempahan.html" class="nav-inactive flex items-center gap-3 px-3 py-2 rounded-lg text-sm transition-colors">
+        <svg class="w-5 h-5 shrink-0" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5" /></svg>
+        Sistem Tempahan
+        <span class="ml-auto text-xs bg-yellow-100 dark:bg-yellow-900/40 text-yellow-700 dark:text-yellow-400 px-1.5 py-0.5 rounded-full font-semibold">5</span>
+      </a>
+      <a href="/admin/fasiliti.html" class="nav-inactive flex items-center gap-3 px-3 py-2 rounded-lg text-sm transition-colors">
+        <svg class="w-5 h-5 shrink-0" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 21h16.5M4.5 3h15M5.25 3v18m13.5-18v18M9 6.75h1.5m-1.5 3h1.5m-1.5 3h1.5m3-6H15m-1.5 3H15m-1.5 3H15M9 21v-3.375c0-.621.504-1.125 1.125-1.125h3.75c.621 0 1.125.504 1.125 1.125V21" /></svg>
+        Pengurusan Fasiliti
+      </a>
+      <a href="/admin/operasi.html" class="nav-inactive flex items-center gap-3 px-3 py-2 rounded-lg text-sm transition-colors">
+        <svg class="w-5 h-5 shrink-0" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12h3.75M9 15h3.75M9 18h3.75m3 .75H18a2.25 2.25 0 0 0 2.25-2.25V6.108c0-1.135-.845-2.098-1.976-2.192a48.424 48.424 0 0 0-1.123-.08m-5.801 0c-.065.21-.1.433-.1.664 0 .414.336.75.75.75h4.5a.75.75 0 0 0 .75-.75 2.25 2.25 0 0 0-.1-.664m-5.8 0A2.251 2.251 0 0 1 13.5 2.25H15c1.012 0 1.867.668 2.15 1.586m-5.8 0c-.376.023-.75.05-1.124.08C9.095 4.01 8.25 4.973 8.25 6.108V8.25m0 0H4.875c-.621 0-1.125.504-1.125 1.125v11.25c0 .621.504 1.125 1.125 1.125h9.75c.621 0 1.125-.504 1.125-1.125V9.375c0-.621-.504-1.125-1.125-1.125H8.25ZM6.75 12h.008v.008H6.75V12Zm0 3h.008v.008H6.75V15Zm0 3h.008v.008H6.75V18Z" /></svg>
+        Log Operasi Harian
+      </a>
+      <p class="px-3 pb-1 pt-4 text-xs font-semibold text-gray-400 dark:text-gray-600 uppercase tracking-wider">Khidmat Pelanggan</p>
+      <a href="/aduan.html" class="nav-inactive flex items-center gap-3 px-3 py-2 rounded-lg text-sm transition-colors">
+        <svg class="w-5 h-5 shrink-0" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126ZM12 15.75h.007v.008H12v-.008Z" /></svg>
+        Sistem Aduan
+        <span class="ml-auto text-xs bg-red-100 dark:bg-red-900/40 text-red-700 dark:text-red-400 px-1.5 py-0.5 rounded-full font-semibold">12</span>
+      </a>
+      <a href="/admin/laporan.html" class="nav-active flex items-center gap-3 px-3 py-2 rounded-lg text-sm transition-colors">
+        <svg class="w-5 h-5 shrink-0" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 0 1 3 19.875v-6.75ZM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V8.625ZM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V4.125Z" /></svg>
+        Laporan &amp; Statistik
+      </a>
+      <p class="px-3 pb-1 pt-4 text-xs font-semibold text-gray-400 dark:text-gray-600 uppercase tracking-wider">Pengurusan</p>
+      <a href="/admin/pengunjung.html" class="nav-inactive flex items-center gap-3 px-3 py-2 rounded-lg text-sm transition-colors">
+        <svg class="w-5 h-5 shrink-0" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M18 18.72a9.094 9.094 0 0 0 3.741-.479 3 3 0 0 0-4.682-2.72m.94 3.198.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0 1 12 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 0 1 6 18.719m12 0a5.971 5.971 0 0 0-.941-3.197m0 0A5.995 5.995 0 0 0 12 12.75a5.995 5.995 0 0 0-5.058 2.772m0 0a3 3 0 0 0-4.681 2.72 8.986 8.986 0 0 0 3.74.477m.94-3.197a5.971 5.971 0 0 0-.94 3.197M15 6.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Zm6 3a2.25 2.25 0 1 1-4.5 0 2.25 2.25 0 0 1 4.5 0Zm-13.5 0a2.25 2.25 0 1 1-4.5 0 2.25 2.25 0 0 1 4.5 0Z" /></svg>
+        Pengurusan Pengunjung
+      </a>
+      <a href="/pengguna.html" class="nav-inactive flex items-center gap-3 px-3 py-2 rounded-lg text-sm transition-colors">
+        <svg class="w-5 h-5 shrink-0" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19.128a9.38 9.38 0 0 0 2.625.372 9.337 9.337 0 0 0 4.121-.952 4.125 4.125 0 0 0-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 0 1 8.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0 1 11.964-3.07M12 6.375a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0Zm8.25 2.25a2.625 2.625 0 1 1-5.25 0 2.625 2.625 0 0 1 5.25 0Z" /></svg>
+        Pengurusan Pengguna
+      </a>
+      <a href="#" class="nav-inactive flex items-center gap-3 px-3 py-2 rounded-lg text-sm transition-colors">
+        <svg class="w-5 h-5 shrink-0" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M9.594 3.94c.09-.542.56-.94 1.11-.94h2.593c.55 0 1.02.398 1.11.94l.213 1.281c.063.374.313.686.645.87.074.04.147.083.22.127.325.196.72.257 1.075.124l1.217-.456a1.125 1.125 0 0 1 1.37.49l1.296 2.247a1.125 1.125 0 0 1-.26 1.431l-1.003.827c-.293.241-.438.613-.43.992a7.723 7.723 0 0 1 0 .255c-.008.378.137.75.43.991l1.004.827c.424.35.534.955.26 1.43l-1.298 2.247a1.125 1.125 0 0 1-1.369.491l-1.217-.456c-.355-.133-.75-.072-1.076.124a6.47 6.47 0 0 1-.22.128c-.331.183-.581.495-.644.869l-.213 1.281c-.09.543-.56.94-1.11.94h-2.594c-.55 0-1.019-.398-1.11-.94l-.213-1.281c-.062-.374-.312-.686-.644-.87a6.52 6.52 0 0 1-.22-.127c-.325-.196-.72-.257-1.076-.124l-1.217.456a1.125 1.125 0 0 1-1.369-.49l-1.297-2.247a1.125 1.125 0 0 1 .26-1.431l1.004-.827c.292-.24.437-.613.43-.991a6.932 6.932 0 0 1 0-.255c.007-.38-.138-.751-.43-.992l-1.004-.827a1.125 1.125 0 0 1-.26-1.43l1.297-2.247a1.125 1.125 0 0 1 1.37-.491l1.216.456c.356.133.751.072 1.076-.124.072-.044.146-.086.22-.128.332-.183.582-.495.644-.869l.214-1.28Z" /><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" /></svg>
+        Tetapan
+      </a>
+    </nav>
+    <div class="shrink-0 p-3 border-t border-gray-200 dark:border-gray-800">
+      <div class="flex items-center gap-3 px-2 py-2 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-900 transition-colors cursor-pointer">
+        <div class="w-8 h-8 rounded-full bg-teal-600 flex items-center justify-center text-white text-sm font-bold shrink-0">AH</div>
+        <div class="flex-1 min-w-0">
+          <div class="text-sm font-medium text-gray-900 dark:text-gray-100 truncate">Ahmad Hafiz</div>
+          <div class="text-xs text-gray-500 dark:text-gray-400 truncate">Administrator</div>
+        </div>
+        <a href="/login.html" class="text-gray-400 hover:text-red-500 transition-colors shrink-0" title="Log Keluar">
+          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0 0 13.5 3h-6a2.25 2.25 0 0 0-2.25 2.25v13.5A2.25 2.25 0 0 0 7.5 21h6a2.25 2.25 0 0 0 2.25-2.25V15m3 0 3-3m0 0-3-3m3 3H9" /></svg>
+        </a>
+      </div>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <div :class="sidebarOpen ? 'lg:pl-64' : ''" class="flex flex-col min-h-screen transition-all duration-300 ease-in-out">
+    <header class="sticky top-0 z-10 h-16 bg-white dark:bg-gray-950 border-b border-gray-200 dark:border-gray-800 flex items-center gap-3 px-4 lg:px-6 shrink-0">
+      <button @click="sidebarOpen = !sidebarOpen" class="p-2 rounded-lg text-gray-500 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
+        <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" /></svg>
+      </button>
+      <nav class="flex items-center gap-1.5 text-sm text-gray-500 dark:text-gray-400">
+        <a href="/dashboard.html" class="hover:text-gray-700 dark:hover:text-gray-200">e-PSN</a>
+        <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" /></svg>
+        <span class="text-gray-900 dark:text-gray-100 font-medium">Laporan &amp; Statistik</span>
+      </nav>
+      <div class="ml-auto flex items-center gap-1.5">
+        <button class="hidden sm:inline-flex items-center gap-2 px-3 py-2 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 text-xs font-medium rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors">
+          <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3" /></svg>
+          Eksport PDF
+        </button>
+        <button @click="toggleDark()" title="Tukar Tema" class="p-2 rounded-lg text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
+          <svg x-show="!dark" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3v2.25m6.364.386-1.591 1.591M21 12h-2.25m-.386 6.364-1.591-1.591M12 18.75V21m-4.773-4.227-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0Z" /></svg>
+          <svg x-show="dark" x-cloak class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M21.752 15.002A9.72 9.72 0 0 1 18 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 0 0 3 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 0 0 9.002-5.998Z" /></svg>
+        </button>
+        <div class="w-8 h-8 rounded-full bg-teal-600 flex items-center justify-center text-white text-sm font-bold cursor-pointer ml-1">AH</div>
+      </div>
+    </header>
+
+    <main class="flex-1 p-4 lg:p-6 space-y-6">
+
+      <!-- Page header -->
+      <div class="flex items-center justify-between flex-wrap gap-4">
+        <div>
+          <h1 class="text-xl font-bold text-gray-900 dark:text-white">Laporan &amp; Statistik</h1>
+          <p class="text-sm text-gray-500 dark:text-gray-400 mt-0.5">Ringkasan prestasi semua modul — Jan hingga Mac 2025</p>
+        </div>
+        <div class="flex items-center gap-2">
+          <select class="rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 px-3 py-2 text-sm text-gray-700 dark:text-gray-300 focus:outline-none focus:ring-2 focus:ring-teal-500">
+            <option>Suku Pertama 2025</option>
+            <option>Suku Kedua 2025</option>
+            <option>2024</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Summary Cards -->
+      <div class="grid sm:grid-cols-2 xl:grid-cols-4 gap-4">
+        <div class="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-5 shadow-sm">
+          <p class="text-xs font-semibold text-gray-400 dark:text-gray-500 uppercase tracking-wider mb-1">Jumlah Aduan</p>
+          <p class="text-3xl font-bold text-gray-900 dark:text-white mb-1">147</p>
+          <p class="text-xs text-green-600 dark:text-green-400">86% diselesaikan</p>
+        </div>
+        <div class="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-5 shadow-sm">
+          <p class="text-xs font-semibold text-gray-400 dark:text-gray-500 uppercase tracking-wider mb-1">Jumlah Tempahan</p>
+          <p class="text-3xl font-bold text-gray-900 dark:text-white mb-1">312</p>
+          <p class="text-xs text-green-600 dark:text-green-400">92% disahkan</p>
+        </div>
+        <div class="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-5 shadow-sm">
+          <p class="text-xs font-semibold text-gray-400 dark:text-gray-500 uppercase tracking-wider mb-1">Jumlah Pengunjung</p>
+          <p class="text-3xl font-bold text-gray-900 dark:text-white mb-1">25,972</p>
+          <p class="text-xs text-green-600 dark:text-green-400">+18% YoY</p>
+        </div>
+        <div class="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-5 shadow-sm">
+          <p class="text-xs font-semibold text-gray-400 dark:text-gray-500 uppercase tracking-wider mb-1">Aktiviti Dianjurkan</p>
+          <p class="text-3xl font-bold text-gray-900 dark:text-white mb-1">38</p>
+          <p class="text-xs text-gray-500 dark:text-gray-400">Pameran, program &amp; bengkel</p>
+        </div>
+      </div>
+
+      <!-- Module Tabs -->
+      <div class="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm overflow-hidden">
+        <div class="flex border-b border-gray-200 dark:border-gray-700 overflow-x-auto">
+          <button @click="tab='aduan'" :class="tab==='aduan' ? 'border-b-2 border-teal-600 text-teal-600 dark:text-teal-400 font-medium' : 'text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200'" class="px-5 py-3.5 text-sm transition-colors whitespace-nowrap shrink-0">Aduan</button>
+          <button @click="tab='tempahan'" :class="tab==='tempahan' ? 'border-b-2 border-teal-600 text-teal-600 dark:text-teal-400 font-medium' : 'text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200'" class="px-5 py-3.5 text-sm transition-colors whitespace-nowrap shrink-0">Tempahan</button>
+          <button @click="tab='pengunjung'" :class="tab==='pengunjung' ? 'border-b-2 border-teal-600 text-teal-600 dark:text-teal-400 font-medium' : 'text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200'" class="px-5 py-3.5 text-sm transition-colors whitespace-nowrap shrink-0">Pengunjung</button>
+          <button @click="tab='fasiliti'" :class="tab==='fasiliti' ? 'border-b-2 border-teal-600 text-teal-600 dark:text-teal-400 font-medium' : 'text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200'" class="px-5 py-3.5 text-sm transition-colors whitespace-nowrap shrink-0">Fasiliti</button>
+        </div>
+
+        <!-- Aduan Tab -->
+        <div x-show="tab==='aduan'" x-cloak class="p-5 space-y-6">
+          <div class="grid sm:grid-cols-4 gap-4">
+            <div class="text-center p-4 rounded-xl bg-red-50 dark:bg-red-900/20 border border-red-100 dark:border-red-800/30">
+              <p class="text-2xl font-bold text-red-600 dark:text-red-400">18</p>
+              <p class="text-xs text-red-600 dark:text-red-400 mt-1">Baharu</p>
+            </div>
+            <div class="text-center p-4 rounded-xl bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-100 dark:border-yellow-800/30">
+              <p class="text-2xl font-bold text-yellow-600 dark:text-yellow-400">3</p>
+              <p class="text-xs text-yellow-600 dark:text-yellow-400 mt-1">Dalam Proses</p>
+            </div>
+            <div class="text-center p-4 rounded-xl bg-green-50 dark:bg-green-900/20 border border-green-100 dark:border-green-800/30">
+              <p class="text-2xl font-bold text-green-600 dark:text-green-400">121</p>
+              <p class="text-xs text-green-600 dark:text-green-400 mt-1">Selesai</p>
+            </div>
+            <div class="text-center p-4 rounded-xl bg-gray-50 dark:bg-gray-700/40 border border-gray-200 dark:border-gray-600">
+              <p class="text-2xl font-bold text-gray-600 dark:text-gray-400">5</p>
+              <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Ditolak</p>
+            </div>
+          </div>
+          <div>
+            <h3 class="text-sm font-semibold text-gray-900 dark:text-white mb-4">Aduan Mengikut Kategori</h3>
+            <div class="space-y-3">
+              <div class="flex items-center gap-3 text-sm">
+                <span class="w-40 text-gray-600 dark:text-gray-400 shrink-0">Kemudahan Awam</span>
+                <div class="flex-1 h-5 bg-gray-100 dark:bg-gray-700 rounded overflow-hidden">
+                  <div class="h-full bg-teal-500 rounded" style="width: 48%"></div>
+                </div>
+                <span class="w-12 text-right text-gray-700 dark:text-gray-300 font-medium">71</span>
+              </div>
+              <div class="flex items-center gap-3 text-sm">
+                <span class="w-40 text-gray-600 dark:text-gray-400 shrink-0">Peralatan &amp; Aset</span>
+                <div class="flex-1 h-5 bg-gray-100 dark:bg-gray-700 rounded overflow-hidden">
+                  <div class="h-full bg-blue-500 rounded" style="width: 30%"></div>
+                </div>
+                <span class="w-12 text-right text-gray-700 dark:text-gray-300 font-medium">44</span>
+              </div>
+              <div class="flex items-center gap-3 text-sm">
+                <span class="w-40 text-gray-600 dark:text-gray-400 shrink-0">Perkhidmatan Staf</span>
+                <div class="flex-1 h-5 bg-gray-100 dark:bg-gray-700 rounded overflow-hidden">
+                  <div class="h-full bg-purple-500 rounded" style="width: 14%"></div>
+                </div>
+                <span class="w-12 text-right text-gray-700 dark:text-gray-300 font-medium">21</span>
+              </div>
+              <div class="flex items-center gap-3 text-sm">
+                <span class="w-40 text-gray-600 dark:text-gray-400 shrink-0">Lain-lain</span>
+                <div class="flex-1 h-5 bg-gray-100 dark:bg-gray-700 rounded overflow-hidden">
+                  <div class="h-full bg-gray-400 rounded" style="width: 7%"></div>
+                </div>
+                <span class="w-12 text-right text-gray-700 dark:text-gray-300 font-medium">11</span>
+              </div>
+            </div>
+          </div>
+          <div>
+            <h3 class="text-sm font-semibold text-gray-900 dark:text-white mb-3">Aduan Bulanan</h3>
+            <div class="overflow-x-auto">
+              <table class="w-full text-sm">
+                <thead><tr class="border-b border-gray-100 dark:border-gray-700 bg-gray-50 dark:bg-gray-900/50">
+                  <th class="py-2.5 px-4 text-left text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase">Bulan</th>
+                  <th class="py-2.5 px-4 text-right text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase">Diterima</th>
+                  <th class="py-2.5 px-4 text-right text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase">Selesai</th>
+                  <th class="py-2.5 px-4 text-right text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase">Kadar Penyelesaian</th>
+                </tr></thead>
+                <tbody class="divide-y divide-gray-100 dark:divide-gray-700">
+                  <tr class="hover:bg-gray-50 dark:hover:bg-gray-700/30"><td class="py-2.5 px-4 text-gray-900 dark:text-gray-100">Januari</td><td class="py-2.5 px-4 text-right text-gray-600 dark:text-gray-400">48</td><td class="py-2.5 px-4 text-right text-gray-600 dark:text-gray-400">43</td><td class="py-2.5 px-4 text-right"><span class="text-green-600 dark:text-green-400 font-medium">89.6%</span></td></tr>
+                  <tr class="hover:bg-gray-50 dark:hover:bg-gray-700/30"><td class="py-2.5 px-4 text-gray-900 dark:text-gray-100">Februari</td><td class="py-2.5 px-4 text-right text-gray-600 dark:text-gray-400">52</td><td class="py-2.5 px-4 text-right text-gray-600 dark:text-gray-400">46</td><td class="py-2.5 px-4 text-right"><span class="text-green-600 dark:text-green-400 font-medium">88.5%</span></td></tr>
+                  <tr class="hover:bg-gray-50 dark:hover:bg-gray-700/30 bg-teal-50/50 dark:bg-teal-900/10"><td class="py-2.5 px-4 text-teal-700 dark:text-teal-300 font-medium">Mac (semasa)</td><td class="py-2.5 px-4 text-right text-teal-600 dark:text-teal-400">47</td><td class="py-2.5 px-4 text-right text-teal-600 dark:text-teal-400">32</td><td class="py-2.5 px-4 text-right"><span class="text-yellow-600 dark:text-yellow-400 font-medium">68.1%</span></td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tempahan Tab -->
+        <div x-show="tab==='tempahan'" x-cloak class="p-5 space-y-6">
+          <div class="grid sm:grid-cols-3 gap-4">
+            <div class="text-center p-4 rounded-xl bg-green-50 dark:bg-green-900/20 border border-green-100 dark:border-green-800/30">
+              <p class="text-2xl font-bold text-green-600 dark:text-green-400">288</p>
+              <p class="text-xs text-green-600 dark:text-green-400 mt-1">Disahkan (92%)</p>
+            </div>
+            <div class="text-center p-4 rounded-xl bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-100 dark:border-yellow-800/30">
+              <p class="text-2xl font-bold text-yellow-600 dark:text-yellow-400">17</p>
+              <p class="text-xs text-yellow-600 dark:text-yellow-400 mt-1">Menunggu</p>
+            </div>
+            <div class="text-center p-4 rounded-xl bg-red-50 dark:bg-red-900/20 border border-red-100 dark:border-red-800/30">
+              <p class="text-2xl font-bold text-red-600 dark:text-red-400">7</p>
+              <p class="text-xs text-red-600 dark:text-red-400 mt-1">Ditolak</p>
+            </div>
+          </div>
+          <div>
+            <h3 class="text-sm font-semibold text-gray-900 dark:text-white mb-4">Tempahan Mengikut Fasiliti</h3>
+            <div class="space-y-3">
+              <div class="flex items-center gap-3 text-sm">
+                <span class="w-40 text-gray-600 dark:text-gray-400 shrink-0">Bilik Seminar A</span>
+                <div class="flex-1 h-5 bg-gray-100 dark:bg-gray-700 rounded overflow-hidden">
+                  <div class="h-full bg-teal-500 rounded" style="width: 38%"></div>
+                </div>
+                <span class="w-12 text-right text-gray-700 dark:text-gray-300 font-medium">119</span>
+              </div>
+              <div class="flex items-center gap-3 text-sm">
+                <span class="w-40 text-gray-600 dark:text-gray-400 shrink-0">Dewan Utama</span>
+                <div class="flex-1 h-5 bg-gray-100 dark:bg-gray-700 rounded overflow-hidden">
+                  <div class="h-full bg-blue-500 rounded" style="width: 28%"></div>
+                </div>
+                <span class="w-12 text-right text-gray-700 dark:text-gray-300 font-medium">87</span>
+              </div>
+              <div class="flex items-center gap-3 text-sm">
+                <span class="w-40 text-gray-600 dark:text-gray-400 shrink-0">Makmal Sains</span>
+                <div class="flex-1 h-5 bg-gray-100 dark:bg-gray-700 rounded overflow-hidden">
+                  <div class="h-full bg-purple-500 rounded" style="width: 20%"></div>
+                </div>
+                <span class="w-12 text-right text-gray-700 dark:text-gray-300 font-medium">63</span>
+              </div>
+              <div class="flex items-center gap-3 text-sm">
+                <span class="w-40 text-gray-600 dark:text-gray-400 shrink-0">Lain-lain</span>
+                <div class="flex-1 h-5 bg-gray-100 dark:bg-gray-700 rounded overflow-hidden">
+                  <div class="h-full bg-gray-400 rounded" style="width: 14%"></div>
+                </div>
+                <span class="w-12 text-right text-gray-700 dark:text-gray-300 font-medium">43</span>
+              </div>
+            </div>
+          </div>
+          <div>
+            <h3 class="text-sm font-semibold text-gray-900 dark:text-white mb-3">Tempahan Bulanan</h3>
+            <div class="overflow-x-auto">
+              <table class="w-full text-sm">
+                <thead><tr class="border-b border-gray-100 dark:border-gray-700 bg-gray-50 dark:bg-gray-900/50">
+                  <th class="py-2.5 px-4 text-left text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase">Bulan</th>
+                  <th class="py-2.5 px-4 text-right text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase">Permohonan</th>
+                  <th class="py-2.5 px-4 text-right text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase">Disahkan</th>
+                  <th class="py-2.5 px-4 text-right text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase">Hasil (RM)</th>
+                </tr></thead>
+                <tbody class="divide-y divide-gray-100 dark:divide-gray-700">
+                  <tr class="hover:bg-gray-50 dark:hover:bg-gray-700/30"><td class="py-2.5 px-4 text-gray-900 dark:text-gray-100">Januari</td><td class="py-2.5 px-4 text-right text-gray-600 dark:text-gray-400">98</td><td class="py-2.5 px-4 text-right text-gray-600 dark:text-gray-400">91</td><td class="py-2.5 px-4 text-right font-medium text-teal-600 dark:text-teal-400">14,280</td></tr>
+                  <tr class="hover:bg-gray-50 dark:hover:bg-gray-700/30"><td class="py-2.5 px-4 text-gray-900 dark:text-gray-100">Februari</td><td class="py-2.5 px-4 text-right text-gray-600 dark:text-gray-400">107</td><td class="py-2.5 px-4 text-right text-gray-600 dark:text-gray-400">99</td><td class="py-2.5 px-4 text-right font-medium text-teal-600 dark:text-teal-400">16,940</td></tr>
+                  <tr class="hover:bg-gray-50 dark:hover:bg-gray-700/30 bg-teal-50/50 dark:bg-teal-900/10"><td class="py-2.5 px-4 text-teal-700 dark:text-teal-300 font-medium">Mac (semasa)</td><td class="py-2.5 px-4 text-right text-teal-600 dark:text-teal-400">107</td><td class="py-2.5 px-4 text-right text-teal-600 dark:text-teal-400">98</td><td class="py-2.5 px-4 text-right font-medium text-teal-600 dark:text-teal-400">15,760</td></tr>
+                </tbody>
+                <tfoot><tr class="border-t-2 border-gray-200 dark:border-gray-600">
+                  <td class="py-2.5 px-4 font-semibold text-gray-900 dark:text-white">Jumlah</td>
+                  <td class="py-2.5 px-4 text-right font-semibold text-gray-900 dark:text-white">312</td>
+                  <td class="py-2.5 px-4 text-right font-semibold text-gray-900 dark:text-white">288</td>
+                  <td class="py-2.5 px-4 text-right font-bold text-teal-600 dark:text-teal-400">46,980</td>
+                </tr></tfoot>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- Pengunjung Tab -->
+        <div x-show="tab==='pengunjung'" x-cloak class="p-5 space-y-6">
+          <div>
+            <h3 class="text-sm font-semibold text-gray-900 dark:text-white mb-4">Pengunjung Mengikut Bulan</h3>
+            <div class="space-y-3">
+              <div class="flex items-center gap-3 text-sm">
+                <span class="w-24 text-gray-600 dark:text-gray-400 shrink-0">Januari</span>
+                <div class="flex-1 h-6 bg-gray-100 dark:bg-gray-700 rounded overflow-hidden">
+                  <div class="h-full bg-teal-500 rounded flex items-center px-2" style="width: 80%">
+                    <span class="text-white text-xs font-medium">7,820</span>
+                  </div>
+                </div>
+              </div>
+              <div class="flex items-center gap-3 text-sm">
+                <span class="w-24 text-gray-600 dark:text-gray-400 shrink-0">Februari</span>
+                <div class="flex-1 h-6 bg-gray-100 dark:bg-gray-700 rounded overflow-hidden">
+                  <div class="h-full bg-teal-500 rounded flex items-center px-2" style="width: 86%">
+                    <span class="text-white text-xs font-medium">8,410</span>
+                  </div>
+                </div>
+              </div>
+              <div class="flex items-center gap-3 text-sm">
+                <span class="w-24 text-gray-600 dark:text-gray-400 shrink-0">Mac</span>
+                <div class="flex-1 h-6 bg-gray-100 dark:bg-gray-700 rounded overflow-hidden">
+                  <div class="h-full bg-teal-600 rounded flex items-center px-2" style="width: 100%">
+                    <span class="text-white text-xs font-medium">9,742</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <p class="text-xs text-gray-400 mt-3">Jumlah suku pertama: <strong class="text-teal-600 dark:text-teal-400">25,972</strong> pengunjung</p>
+          </div>
+          <div class="overflow-x-auto">
+            <table class="w-full text-sm">
+              <thead><tr class="border-b border-gray-100 dark:border-gray-700 bg-gray-50 dark:bg-gray-900/50">
+                <th class="py-2.5 px-4 text-left text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase">Kategori</th>
+                <th class="py-2.5 px-4 text-right text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase">Jan</th>
+                <th class="py-2.5 px-4 text-right text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase">Feb</th>
+                <th class="py-2.5 px-4 text-right text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase">Mac</th>
+                <th class="py-2.5 px-4 text-right text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase">Jumlah</th>
+              </tr></thead>
+              <tbody class="divide-y divide-gray-100 dark:divide-gray-700">
+                <tr class="hover:bg-gray-50 dark:hover:bg-gray-700/30"><td class="py-2.5 px-4 text-gray-900 dark:text-gray-100">Pelajar SR</td><td class="py-2.5 px-4 text-right text-gray-600 dark:text-gray-400">2,580</td><td class="py-2.5 px-4 text-right text-gray-600 dark:text-gray-400">2,790</td><td class="py-2.5 px-4 text-right text-gray-600 dark:text-gray-400">3,240</td><td class="py-2.5 px-4 text-right font-semibold text-gray-900 dark:text-white">8,610</td></tr>
+                <tr class="hover:bg-gray-50 dark:hover:bg-gray-700/30"><td class="py-2.5 px-4 text-gray-900 dark:text-gray-100">Pelajar SM</td><td class="py-2.5 px-4 text-right text-gray-600 dark:text-gray-400">2,340</td><td class="py-2.5 px-4 text-right text-gray-600 dark:text-gray-400">2,510</td><td class="py-2.5 px-4 text-right text-gray-600 dark:text-gray-400">2,940</td><td class="py-2.5 px-4 text-right font-semibold text-gray-900 dark:text-white">7,790</td></tr>
+                <tr class="hover:bg-gray-50 dark:hover:bg-gray-700/30"><td class="py-2.5 px-4 text-gray-900 dark:text-gray-100">Dewasa</td><td class="py-2.5 px-4 text-right text-gray-600 dark:text-gray-400">2,250</td><td class="py-2.5 px-4 text-right text-gray-600 dark:text-gray-400">2,420</td><td class="py-2.5 px-4 text-right text-gray-600 dark:text-gray-400">2,840</td><td class="py-2.5 px-4 text-right font-semibold text-gray-900 dark:text-white">7,510</td></tr>
+                <tr class="hover:bg-gray-50 dark:hover:bg-gray-700/30"><td class="py-2.5 px-4 text-gray-900 dark:text-gray-100">Kumpulan Khas</td><td class="py-2.5 px-4 text-right text-gray-600 dark:text-gray-400">650</td><td class="py-2.5 px-4 text-right text-gray-600 dark:text-gray-400">690</td><td class="py-2.5 px-4 text-right text-gray-600 dark:text-gray-400">722</td><td class="py-2.5 px-4 text-right font-semibold text-gray-900 dark:text-white">2,062</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Fasiliti Tab -->
+        <div x-show="tab==='fasiliti'" x-cloak class="p-5 space-y-6">
+          <div>
+            <h3 class="text-sm font-semibold text-gray-900 dark:text-white mb-4">Kadar Penggunaan Fasiliti</h3>
+            <div class="space-y-4">
+              <div class="bg-gray-50 dark:bg-gray-700/40 rounded-xl p-4">
+                <div class="flex items-center justify-between mb-2">
+                  <span class="font-medium text-gray-900 dark:text-white text-sm">Bilik Seminar A</span>
+                  <span class="text-sm font-bold text-teal-600 dark:text-teal-400">78%</span>
+                </div>
+                <div class="h-3 bg-gray-200 dark:bg-gray-600 rounded-full overflow-hidden">
+                  <div class="h-full bg-teal-500 rounded-full" style="width: 78%"></div>
+                </div>
+                <p class="text-xs text-gray-500 dark:text-gray-400 mt-1.5">119 tempahan · 62 hari operasi</p>
+              </div>
+              <div class="bg-gray-50 dark:bg-gray-700/40 rounded-xl p-4">
+                <div class="flex items-center justify-between mb-2">
+                  <span class="font-medium text-gray-900 dark:text-white text-sm">Dewan Utama</span>
+                  <span class="text-sm font-bold text-blue-600 dark:text-blue-400">54%</span>
+                </div>
+                <div class="h-3 bg-gray-200 dark:bg-gray-600 rounded-full overflow-hidden">
+                  <div class="h-full bg-blue-500 rounded-full" style="width: 54%"></div>
+                </div>
+                <p class="text-xs text-gray-500 dark:text-gray-400 mt-1.5">87 tempahan · 62 hari operasi</p>
+              </div>
+              <div class="bg-gray-50 dark:bg-gray-700/40 rounded-xl p-4">
+                <div class="flex items-center justify-between mb-2">
+                  <span class="font-medium text-gray-900 dark:text-white text-sm">Makmal Sains</span>
+                  <span class="text-sm font-bold text-purple-600 dark:text-purple-400">65%</span>
+                </div>
+                <div class="h-3 bg-gray-200 dark:bg-gray-600 rounded-full overflow-hidden">
+                  <div class="h-full bg-purple-500 rounded-full" style="width: 65%"></div>
+                </div>
+                <p class="text-xs text-gray-500 dark:text-gray-400 mt-1.5">63 tempahan · 62 hari operasi</p>
+              </div>
+              <div class="bg-gray-50 dark:bg-gray-700/40 rounded-xl p-4">
+                <div class="flex items-center justify-between mb-2">
+                  <span class="font-medium text-gray-900 dark:text-white text-sm">Auditorium</span>
+                  <span class="text-sm font-bold text-orange-600 dark:text-orange-400">42%</span>
+                </div>
+                <div class="h-3 bg-gray-200 dark:bg-gray-600 rounded-full overflow-hidden">
+                  <div class="h-full bg-orange-400 rounded-full" style="width: 42%"></div>
+                </div>
+                <p class="text-xs text-gray-500 dark:text-gray-400 mt-1.5">43 tempahan · 62 hari operasi</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </main>
+  </div>
+
+</body>
+</html>

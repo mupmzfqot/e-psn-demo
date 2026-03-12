@@ -26,6 +26,7 @@ export default defineConfig({
         tempahan:          resolve(__dirname, 'pages/tempahan.html'),
         tempahanDetail:    resolve(__dirname, 'pages/tempahan-detail.html'),
         pengguna:          resolve(__dirname, 'pages/pengguna.html'),
+        adminGaleri:       resolve(__dirname, 'pages/admin/galeri.html'),
         adminTakwim:       resolve(__dirname, 'pages/admin/takwim.html'),
         adminTakwimDetail: resolve(__dirname, 'pages/admin/takwim-detail.html'),
         adminPengunjung:   resolve(__dirname, 'pages/admin/pengunjung.html'),

@@ -6,8 +6,9 @@
   <title>Takwim Aktiviti | e-PSN</title>
   <script>if(localStorage.theme==='dark'||(!('theme' in localStorage)&&window.matchMedia('(prefers-color-scheme: dark)').matches)){document.documentElement.classList.add('dark')}</script>
   <script type="module" src="/src/main.js"></script>
+  <style>[x-cloak]{display:none!important}</style>
 </head>
-<body class="bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100 font-sans antialiased min-h-screen flex flex-col"
+<body x-cloak class="bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100 font-sans antialiased min-h-screen flex flex-col"
   x-data="{
     dark: document.documentElement.classList.contains('dark'),
     toggleDark() {
@@ -22,16 +23,19 @@
   <nav class="sticky top-0 z-50 bg-white dark:bg-gray-950 border-b border-gray-200 dark:border-gray-800 shadow-sm">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center gap-6">
       <a href="/index.html" class="flex items-center gap-2 shrink-0">
-        <img src="/src/logo.png" alt="PSN" class="h-9 w-9 object-contain">
-        <span class="font-bold text-teal-600 dark:text-teal-400 text-sm">e-PSN</span>
+        <img src="/logo.png" alt="PSN" class="h-9 w-9 object-contain">
+        <div>
+          <div class="font-bold text-teal-600 dark:text-teal-400 text-sm leading-tight">e-PSN</div>
+          <div class="text-xs text-gray-400 dark:text-gray-500 leading-tight hidden sm:block">Pusat Sains Negara</div>
+        </div>
       </a>
       <div class="hidden md:flex items-center gap-1 flex-1">
         <a href="/index.html" class="px-3 py-2 text-sm text-gray-600 dark:text-gray-400 hover:text-teal-600 dark:hover:text-teal-400 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">Utama</a>
-        <a href="/pages/takwim.html" class="px-3 py-2 text-sm text-teal-600 dark:text-teal-400 font-medium rounded-lg bg-teal-50 dark:bg-teal-900/20 transition-colors">Takwim</a>
-        <a href="/pages/galeri.html" class="px-3 py-2 text-sm text-gray-600 dark:text-gray-400 hover:text-teal-600 dark:hover:text-teal-400 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">Galeri</a>
-        <a href="/pages/program.html" class="px-3 py-2 text-sm text-gray-600 dark:text-gray-400 hover:text-teal-600 dark:hover:text-teal-400 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">Program</a>
-        <a href="/pages/aduan-baru.html" class="px-3 py-2 text-sm text-gray-600 dark:text-gray-400 hover:text-teal-600 dark:hover:text-teal-400 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">Hantar Aduan</a>
-        <a href="/pages/tempahan-baru.html" class="px-3 py-2 text-sm text-gray-600 dark:text-gray-400 hover:text-teal-600 dark:hover:text-teal-400 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">Tempahan</a>
+        <a href="/takwim.html" class="px-3 py-2 text-sm text-teal-600 dark:text-teal-400 font-medium rounded-lg bg-teal-50 dark:bg-teal-900/20 transition-colors">Takwim</a>
+        <a href="/galeri.html" class="px-3 py-2 text-sm text-gray-600 dark:text-gray-400 hover:text-teal-600 dark:hover:text-teal-400 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">Galeri</a>
+        <a href="/program.html" class="px-3 py-2 text-sm text-gray-600 dark:text-gray-400 hover:text-teal-600 dark:hover:text-teal-400 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">Program</a>
+        <a href="/aduan-baru.html" class="px-3 py-2 text-sm text-gray-600 dark:text-gray-400 hover:text-teal-600 dark:hover:text-teal-400 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">Hantar Aduan</a>
+        <a href="/tempahan-baru.html" class="px-3 py-2 text-sm text-gray-600 dark:text-gray-400 hover:text-teal-600 dark:hover:text-teal-400 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">Tempahan</a>
       </div>
       <div class="ml-auto flex items-center gap-2">
         <!-- Dark mode toggle -->
@@ -49,19 +53,19 @@
             <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
           </svg>
         </button>
-        <a href="/pages/login.html" class="hidden md:inline-flex px-4 py-2 bg-teal-600 hover:bg-teal-700 text-white text-sm font-medium rounded-lg transition-colors">Log Masuk</a>
+        <a href="/login.html" class="hidden md:inline-flex px-4 py-2 bg-teal-600 hover:bg-teal-700 text-white text-sm font-medium rounded-lg transition-colors">Log Masuk</a>
       </div>
     </div>
     <!-- Mobile menu -->
     <div x-show="mobileMenuOpen" x-cloak class="md:hidden border-t border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-950 px-4 py-3 space-y-1">
       <a href="/index.html" class="block px-3 py-2 text-sm text-gray-600 dark:text-gray-400 hover:text-teal-600 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">Utama</a>
-      <a href="/pages/takwim.html" class="block px-3 py-2 text-sm text-teal-600 font-medium rounded-lg bg-teal-50 dark:bg-teal-900/20">Takwim</a>
-      <a href="/pages/galeri.html" class="block px-3 py-2 text-sm text-gray-600 dark:text-gray-400 hover:text-teal-600 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">Galeri</a>
-      <a href="/pages/program.html" class="block px-3 py-2 text-sm text-gray-600 dark:text-gray-400 hover:text-teal-600 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">Program</a>
-      <a href="/pages/aduan-baru.html" class="block px-3 py-2 text-sm text-gray-600 dark:text-gray-400 hover:text-teal-600 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">Hantar Aduan</a>
-      <a href="/pages/tempahan-baru.html" class="block px-3 py-2 text-sm text-gray-600 dark:text-gray-400 hover:text-teal-600 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">Tempahan</a>
+      <a href="/takwim.html" class="block px-3 py-2 text-sm text-teal-600 font-medium rounded-lg bg-teal-50 dark:bg-teal-900/20">Takwim</a>
+      <a href="/galeri.html" class="block px-3 py-2 text-sm text-gray-600 dark:text-gray-400 hover:text-teal-600 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">Galeri</a>
+      <a href="/program.html" class="block px-3 py-2 text-sm text-gray-600 dark:text-gray-400 hover:text-teal-600 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">Program</a>
+      <a href="/aduan-baru.html" class="block px-3 py-2 text-sm text-gray-600 dark:text-gray-400 hover:text-teal-600 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">Hantar Aduan</a>
+      <a href="/tempahan-baru.html" class="block px-3 py-2 text-sm text-gray-600 dark:text-gray-400 hover:text-teal-600 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">Tempahan</a>
       <div class="pt-2 border-t border-gray-100 dark:border-gray-800">
-        <a href="/pages/login.html" class="block px-3 py-2 text-sm text-center bg-teal-600 hover:bg-teal-700 text-white rounded-lg transition-colors">Log Masuk</a>
+        <a href="/login.html" class="block px-3 py-2 text-sm text-center bg-teal-600 hover:bg-teal-700 text-white rounded-lg transition-colors">Log Masuk</a>
       </div>
     </div>
   </nav>
@@ -106,7 +110,7 @@
     }">
 
     <!-- Hero -->
-    <section class="bg-gradient-to-br from-teal-600 to-teal-800 text-white py-16 px-4">
+    <section class="bg-linear-to-br from-teal-600 to-teal-800 text-white py-16 px-4">
       <div class="max-w-7xl mx-auto text-center">
         <div class="inline-flex items-center justify-center w-14 h-14 bg-white/20 rounded-2xl mb-5">
           <svg class="w-7 h-7 text-white" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
@@ -321,7 +325,7 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="flex flex-col md:flex-row items-center justify-between gap-4">
         <div class="flex items-center gap-3">
-          <img src="/src/logo.png" alt="PSN" class="h-8 w-8 object-contain opacity-80">
+          <img src="/logo.png" alt="PSN" class="h-8 w-8 object-contain opacity-80">
           <div>
             <div class="text-white font-semibold text-sm">Pusat Sains Negara</div>
             <div class="text-xs text-gray-500">e-PSN Portal Awam</div>
@@ -331,9 +335,9 @@
           &copy; 2025 Pusat Sains Negara. Hak Cipta Terpelihara.
         </div>
         <div class="flex gap-4 text-sm">
-          <a href="/pages/aduan-baru.html" class="hover:text-white transition-colors">Hantar Aduan</a>
-          <a href="/pages/aduan-semak.html" class="hover:text-white transition-colors">Semak Aduan</a>
-          <a href="/pages/tempahan-baru.html" class="hover:text-white transition-colors">Tempahan</a>
+          <a href="/aduan-baru.html" class="hover:text-white transition-colors">Hantar Aduan</a>
+          <a href="/aduan-semak.html" class="hover:text-white transition-colors">Semak Aduan</a>
+          <a href="/tempahan-baru.html" class="hover:text-white transition-colors">Tempahan</a>
         </div>
       </div>
     </div>
